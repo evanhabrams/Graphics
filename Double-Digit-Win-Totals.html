@@ -1,468 +1,87 @@
-<!doctype html>
-<html lang="en" data-theme="dark">
-<head>
-<meta charset="utf-8" />
-<title>NFL Double-Digit Win Totals — Action Network</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="tokens.css" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<style>
-  *, *::before, *::after { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
+<div style="all:initial;display:block;font-family:'Mona Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#1d1d25;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased;max-width:1120px;margin:24px auto;">
 
-  body {
-    font-family: 'Mona Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--surface-background);
-    color: var(--text-icons-primary);
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    font-feature-settings: "ss01", "cv11";
-  }
+  <!-- Header -->
+  <div style="margin-bottom:16px;">
+    <h2 style="margin:0 0 6px;font:700 32px/1.05 'Mona Sans',-apple-system,sans-serif;letter-spacing:-0.02em;color:#1d1d25;">NFL Double-Digit Win Totals</h2>
+    <p style="margin:0;font:500 14px/1.4 'Mona Sans',-apple-system,sans-serif;color:#818188;">Over/under outcomes for teams set with a season win total of 10 or more &mdash; sorted by date range.</p>
+  </div>
 
-  .page {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: var(--space-48) var(--space-32) var(--space-64);
-  }
+  <!-- Card -->
+  <div style="background:#f7f8fd;border:1px solid #dedfe4;border-radius:16px;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,0.14),0 0 2px rgba(0,0,0,0.12);">
 
-  /* ─── Theme toggle ─────────────────────────────────── */
-  .theme-toggle {
-    position: fixed;
-    top: var(--space-20);
-    right: var(--space-20);
-    z-index: 10;
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-8);
-    height: var(--height-32);
-    padding: 0 var(--space-12);
-    border-radius: var(--radius-full);
-    background: var(--surface-foreground);
-    border: 1px solid var(--dividers-border);
-    color: var(--text-icons-secondary);
-    font: 500 11px/1 'Mona Sans', sans-serif;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    cursor: pointer;
-    box-shadow: var(--shadows-raised-1);
-  }
-  .theme-toggle:hover { color: var(--text-icons-primary); }
-  .theme-toggle svg { width: 14px; height: 14px; }
+    <!-- Card header strip -->
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 24px;background:#00c358;">
+      <span style="font:700 13px/1 'Mona Sans',-apple-system,sans-serif;color:#f7f8fd;letter-spacing:0.14em;text-transform:uppercase;">By Date Range</span>
+      <span style="font:600 11px/1 'Mona Sans',-apple-system,sans-serif;color:rgba(247,248,253,0.85);letter-spacing:0.08em;text-transform:uppercase;font-variant-numeric:tabular-nums;">4 Windows &middot; 212 Teams Total</span>
+    </div>
 
-  /* ─── Header ───────────────────────────────────────── */
-  .header { margin-bottom: var(--space-24); }
-  .eyebrow {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-12);
-    color: var(--text-icons-secondary);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-  .eyebrow .dot {
-    width: 6px; height: 6px;
-    border-radius: var(--radius-full);
-    background: var(--surface-brand);
-    flex-shrink: 0;
-  }
-  .eyebrow .sep {
-    width: 2px; height: 2px;
-    border-radius: var(--radius-full);
-    background: var(--text-icons-tertiary);
-  }
-  h1.title {
-    margin: var(--space-16) 0 var(--space-8);
-    font-size: 44px;
-    line-height: 1.04;
-    letter-spacing: -0.02em;
-    font-weight: 700;
-    color: var(--text-icons-primary);
-  }
-  h1.title .accent { color: var(--text-icons-red); }
-  .subhead {
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-12);
-    color: var(--text-icons-secondary);
-    font-size: 14px;
-    font-weight: 500;
-    max-width: 720px;
-  }
+    <!-- Table -->
+    <table style="width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;table-layout:auto;">
+      <thead>
+        <tr>
+          <th style="background:#eeeff4;color:#a4a4aa;text-align:left;padding:12px 16px 12px 24px;font:600 10px/1 'Mona Sans',-apple-system,sans-serif;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid #dedfe4;white-space:nowrap;">Date Range</th>
+          <th style="background:#eeeff4;color:#a4a4aa;text-align:right;padding:12px 16px;font:600 10px/1 'Mona Sans',-apple-system,sans-serif;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid #dedfe4;white-space:nowrap;">Over</th>
+          <th style="background:#eeeff4;color:#a4a4aa;text-align:right;padding:12px 16px;font:600 10px/1 'Mona Sans',-apple-system,sans-serif;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid #dedfe4;white-space:nowrap;">Under</th>
+          <th style="background:#eeeff4;color:#a4a4aa;text-align:right;padding:12px 16px;font:600 10px/1 'Mona Sans',-apple-system,sans-serif;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid #dedfe4;white-space:nowrap;">Push</th>
+          <th style="background:#eeeff4;color:#a4a4aa;text-align:right;padding:12px 16px;font:600 10px/1 'Mona Sans',-apple-system,sans-serif;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid #dedfe4;white-space:nowrap;">Diff</th>
+          <th style="background:#eeeff4;color:#a4a4aa;text-align:right;padding:12px 16px;font:600 10px/1 'Mona Sans',-apple-system,sans-serif;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid #dedfe4;white-space:nowrap;">Teams</th>
+          <th style="background:#eeeff4;color:#a4a4aa;text-align:right;padding:12px 16px;font:600 10px/1 'Mona Sans',-apple-system,sans-serif;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid #dedfe4;white-space:nowrap;">Over %</th>
+          <th style="background:#eeeff4;color:#a4a4aa;text-align:right;padding:12px 24px 12px 16px;font:600 10px/1 'Mona Sans',-apple-system,sans-serif;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid #dedfe4;white-space:nowrap;">Diff / Team</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:16px 16px 16px 24px;text-align:left;font:600 15px/1.2 'Mona Sans',-apple-system,sans-serif;color:#1d1d25;white-space:nowrap;">17-Game Era<div style="font:500 11px/1.2 'Mona Sans',-apple-system,sans-serif;color:#a4a4aa;margin-top:3px;">2021 &ndash; 2025</div></td>
+          <td style="padding:16px;text-align:right;font:600 15px/1 'Mona Sans',-apple-system,sans-serif;color:#818188;white-space:nowrap;">19</td>
+          <td style="padding:16px;text-align:right;font:700 15px/1 'Mona Sans',-apple-system,sans-serif;color:#009c46;white-space:nowrap;">25</td>
+          <td style="padding:16px;text-align:right;font:600 15px/1 'Mona Sans',-apple-system,sans-serif;color:#a4a4aa;white-space:nowrap;">0</td>
+          <td style="padding:16px;text-align:right;font:700 15px/1 'Mona Sans',-apple-system,sans-serif;color:#009c46;white-space:nowrap;">+16.5</td>
+          <td style="padding:16px;text-align:right;font:600 15px/1 'Mona Sans',-apple-system,sans-serif;color:#1d1d25;white-space:nowrap;">44</td>
+          <td style="padding:16px;text-align:right;font:700 15px/1 'Mona Sans',-apple-system,sans-serif;color:#f32535;white-space:nowrap;">43.2%</td>
+          <td style="padding:16px 24px 16px 16px;text-align:right;font:600 15px/1 'Mona Sans',-apple-system,sans-serif;color:#009c46;white-space:nowrap;">+0.38</td>
+        </tr>
+        <tr>
+          <td style="padding:16px 16px 16px 24px;text-align:left;font:600 15px/1.2 'Mona Sans',-apple-system,sans-serif;color:#1d1d25;white-space:nowrap;border-top:1px solid #dedfe4;">Last 10 Seasons<div style="font:500 11px/1.2 'Mona Sans',-apple-system,sans-serif;color:#a4a4aa;margin-top:3px;">2016 &ndash; 2025</div></td>
+          <td style="padding:16px;text-align:right;font:600 15px/1 'Mona Sans',-apple-system,sans-serif;color:#818188;white-space:nowrap;border-top:1px solid #dedfe4;">29</td>
+          <td style="padding:16px;text-align:right;font:700 15px/1 'Mona Sans',-apple-system,sans-serif;color:#009c46;white-space:nowrap;border-top:1px solid #dedfe4;">41</td>
+          <td style="padding:16px;text-align:right;font:600 15px/1 'Mona Sans',-apple-system,sans-serif;color:#a4a4aa;white-space:nowrap;border-top:1px solid #dedfe4;">1</td>
+          <td style="padding:16px;text-align:right;font:700 15px/1 'Mona Sans',-apple-system,sans-serif;color:#009c46;white-space:nowrap;border-top:1px solid #dedfe4;">+37.0</td>
+          <td style="padding:16px;text-align:right;font:600 15px/1 'Mona Sans',-apple-system,sans-serif;color:#1d1d25;white-space:nowrap;border-top:1px solid #dedfe4;">71</td>
+          <td style="padding:16px;text-align:right;font:700 15px/1 'Mona Sans',-apple-system,sans-serif;color:#f32535;white-space:nowrap;border-top:1px solid #dedfe4;">41.4%</td>
+          <td style="padding:16px 24px 16px 16px;text-align:right;font:600 15px/1 'Mona Sans',-apple-system,sans-serif;color:#009c46;white-space:nowrap;border-top:1px solid #dedfe4;">+0.52</td>
+        </tr>
+        <tr>
+          <td style="padding:16px 16px 16px 24px;text-align:left;font:600 15px/1.2 'Mona Sans',-apple-system,sans-serif;color:#1d1d25;white-space:nowrap;border-top:1px solid #dedfe4;">Last 20 Seasons<div style="font:500 11px/1.2 'Mona Sans',-apple-system,sans-serif;color:#a4a4aa;margin-top:3px;">2006 &ndash; 2025</div></td>
+          <td style="padding:16px;text-align:right;font:600 15px/1 'Mona Sans',-apple-system,sans-serif;color:#818188;white-space:nowrap;border-top:1px solid #dedfe4;">56</td>
+          <td style="padding:16px;text-align:right;font:700 15px/1 'Mona Sans',-apple-system,sans-serif;color:#009c46;white-space:nowrap;border-top:1px solid #dedfe4;">71</td>
+          <td style="padding:16px;text-align:right;font:600 15px/1 'Mona Sans',-apple-system,sans-serif;color:#a4a4aa;white-space:nowrap;border-top:1px solid #dedfe4;">4</td>
+          <td style="padding:16px;text-align:right;font:700 15px/1 'Mona Sans',-apple-system,sans-serif;color:#009c46;white-space:nowrap;border-top:1px solid #dedfe4;">+66.5</td>
+          <td style="padding:16px;text-align:right;font:600 15px/1 'Mona Sans',-apple-system,sans-serif;color:#1d1d25;white-space:nowrap;border-top:1px solid #dedfe4;">131</td>
+          <td style="padding:16px;text-align:right;font:700 15px/1 'Mona Sans',-apple-system,sans-serif;color:#f32535;white-space:nowrap;border-top:1px solid #dedfe4;">44.1%</td>
+          <td style="padding:16px 24px 16px 16px;text-align:right;font:600 15px/1 'Mona Sans',-apple-system,sans-serif;color:#009c46;white-space:nowrap;border-top:1px solid #dedfe4;">+0.51</td>
+        </tr>
+        <tr>
+          <td style="padding:16px 16px 16px 24px;text-align:left;font:600 15px/1.2 'Mona Sans',-apple-system,sans-serif;color:#1d1d25;white-space:nowrap;border-top:1px solid #dedfe4;">Since 1990<div style="font:500 11px/1.2 'Mona Sans',-apple-system,sans-serif;color:#a4a4aa;margin-top:3px;">1990 &ndash; 2025</div></td>
+          <td style="padding:16px;text-align:right;font:600 15px/1 'Mona Sans',-apple-system,sans-serif;color:#818188;white-space:nowrap;border-top:1px solid #dedfe4;">86</td>
+          <td style="padding:16px;text-align:right;font:700 15px/1 'Mona Sans',-apple-system,sans-serif;color:#009c46;white-space:nowrap;border-top:1px solid #dedfe4;">116</td>
+          <td style="padding:16px;text-align:right;font:600 15px/1 'Mona Sans',-apple-system,sans-serif;color:#a4a4aa;white-space:nowrap;border-top:1px solid #dedfe4;">10</td>
+          <td style="padding:16px;text-align:right;font:700 15px/1 'Mona Sans',-apple-system,sans-serif;color:#009c46;white-space:nowrap;border-top:1px solid #dedfe4;">+129.5</td>
+          <td style="padding:16px;text-align:right;font:600 15px/1 'Mona Sans',-apple-system,sans-serif;color:#1d1d25;white-space:nowrap;border-top:1px solid #dedfe4;">212</td>
+          <td style="padding:16px;text-align:right;font:700 15px/1 'Mona Sans',-apple-system,sans-serif;color:#f32535;white-space:nowrap;border-top:1px solid #dedfe4;">42.6%</td>
+          <td style="padding:16px 24px 16px 16px;text-align:right;font:600 15px/1 'Mona Sans',-apple-system,sans-serif;color:#009c46;white-space:nowrap;border-top:1px solid #dedfe4;">+0.61</td>
+        </tr>
+      </tbody>
+    </table>
 
-  /* ─── Hero callout ─────────────────────────────────── */
-  .callout {
-    margin-top: var(--space-28);
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: var(--space-24);
-    padding: var(--space-20) var(--space-24);
-    background: var(--surface-foreground);
-    border: 1px solid var(--dividers-border);
-    border-left: 3px solid var(--text-icons-red);
-    border-radius: var(--radius-12);
-    box-shadow: var(--shadows-raised-1);
-  }
-  .callout .badge {
-    display: inline-flex;
-    align-items: center;
-    padding: var(--space-4) var(--space-8);
-    border-radius: var(--radius-4);
-    background: var(--labels-red-background);
-    color: var(--labels-red-text);
-    font: 700 11px/1 'Mona Sans', sans-serif;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-  .callout .copy {
-    font-size: 17px;
-    font-weight: 500;
-    line-height: 1.4;
-    color: var(--text-icons-primary);
-    letter-spacing: -0.005em;
-  }
-  .callout .copy b {
-    font-weight: 700;
-    color: var(--text-icons-red);
-  }
-  .callout .stat {
-    text-align: right;
-    font-variant-numeric: tabular-nums;
-    border-left: 1px solid var(--dividers-border);
-    padding-left: var(--space-24);
-  }
-  .callout .stat .num {
-    display: block;
-    font: 700 32px/1 'Mona Sans', sans-serif;
-    letter-spacing: -0.02em;
-    color: var(--text-icons-red);
-  }
-  .callout .stat .lbl {
-    display: block;
-    margin-top: var(--space-4);
-    font-size: 10px;
-    font-weight: 600;
-    color: var(--text-icons-tertiary);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-
-  /* ─── KPI cards ────────────────────────────────────── */
-  .kpis {
-    margin-top: var(--space-20);
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-12);
-  }
-  .kpi {
-    background: var(--surface-foreground);
-    border: 1px solid var(--dividers-border);
-    border-radius: var(--radius-12);
-    padding: var(--space-16) var(--space-20) var(--space-20);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-12);
-    box-shadow: var(--shadows-raised-1);
-  }
-  .kpi .range {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: var(--space-8);
-  }
-  .kpi .range-label {
-    font: 600 11px/1.2 'Mona Sans', sans-serif;
-    color: var(--text-icons-secondary);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .kpi .range-n {
-    font: 500 11px/1 'Mona Sans', sans-serif;
-    color: var(--text-icons-tertiary);
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 0.04em;
-  }
-  .kpi .opct {
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-8);
-    font-variant-numeric: tabular-nums;
-  }
-  .kpi .opct .pct {
-    font: 700 38px/1 'Mona Sans', sans-serif;
-    letter-spacing: -0.02em;
-    color: var(--text-icons-red);
-  }
-  .kpi .opct .pct-lbl {
-    font: 600 11px/1.2 'Mona Sans', sans-serif;
-    color: var(--text-icons-tertiary);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  /* O/U split bar */
-  .split {
-    display: flex;
-    height: 8px;
-    border-radius: 2px;
-    overflow: hidden;
-    background: var(--surface-ui-element-light);
-  }
-  .split .seg-o { background: var(--text-icons-tertiary); }
-  .split .seg-p { background: var(--surface-ui-element); }
-  .split .seg-u { background: var(--text-icons-green); }
-
-  .split-legend {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: var(--space-8);
-    font-variant-numeric: tabular-nums;
-  }
-  .split-legend .seg {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  .split-legend .seg .k {
-    font: 600 10px/1 'Mona Sans', sans-serif;
-    color: var(--text-icons-tertiary);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-  .split-legend .seg .v {
-    font: 700 16px/1 'Mona Sans', sans-serif;
-    letter-spacing: -0.01em;
-    color: var(--text-icons-primary);
-  }
-  .split-legend .seg.under .v { color: var(--text-icons-green); }
-  .split-legend .seg.over .v { color: var(--text-icons-primary); }
-  .split-legend .seg.push .v { color: var(--text-icons-secondary); }
-
-  /* ─── Table card ───────────────────────────────────── */
-  .card {
-    margin-top: var(--space-32);
-    background: var(--surface-foreground);
-    border: 1px solid var(--dividers-border);
-    border-radius: var(--radius-16);
-    overflow: hidden;
-    box-shadow: var(--shadows-raised-1);
-  }
-  .card-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-12);
-    padding: var(--space-16) var(--space-24);
-    background: var(--surface-brand);
-  }
-  .card-head .head-title {
-    font: 700 13px/1 'Mona Sans', sans-serif;
-    color: var(--text-icons-always-white);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-  .card-head .head-meta {
-    font: 600 11px/1 'Mona Sans', sans-serif;
-    color: var(--text-icons-always-white-80);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-variant-numeric: tabular-nums;
-  }
-
-  table.dr {
-    width: 100%;
-    border-collapse: collapse;
-    font-variant-numeric: tabular-nums;
-  }
-  table.dr thead th {
-    background: var(--surface-ui-element-light);
-    color: var(--text-icons-tertiary);
-    text-align: right;
-    padding: var(--space-12) var(--space-16);
-    font: 600 10px/1 'Mona Sans', sans-serif;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    border-bottom: 1px solid var(--dividers-border);
-    white-space: nowrap;
-  }
-  table.dr thead th:first-child { text-align: left; padding-left: var(--space-24); }
-  table.dr thead th:last-child { padding-right: var(--space-24); }
-
-  table.dr tbody td {
-    padding: var(--space-16);
-    text-align: right;
-    font: 600 15px/1 'Mona Sans', sans-serif;
-    color: var(--text-icons-primary);
-    letter-spacing: -0.005em;
-    white-space: nowrap;
-  }
-  table.dr tbody td:first-child {
-    text-align: left;
-    padding-left: var(--space-24);
-    font-weight: 600;
-    color: var(--text-icons-primary);
-  }
-  table.dr tbody td:last-child { padding-right: var(--space-24); }
-  table.dr tbody tr + tr td { border-top: 1px solid var(--dividers-border); }
-  table.dr tbody tr:hover td { background: var(--surface-ui-element-light-alpha); }
-
-  .label-sub {
-    display: block;
-    font: 500 11px/1.2 'Mona Sans', sans-serif;
-    color: var(--text-icons-tertiary);
-    margin-top: 3px;
-    letter-spacing: 0.02em;
-  }
-
-  td.col-over { color: var(--text-icons-secondary); }
-  td.col-under { color: var(--text-icons-green); font-weight: 700; }
-  td.col-push { color: var(--text-icons-tertiary); }
-  td.col-diff { color: var(--text-icons-green); font-weight: 700; }
-  td.col-opct { color: var(--text-icons-red); font-weight: 700; }
-  td.col-perdiff { color: var(--text-icons-green); font-weight: 600; }
-
-  /* Footer */
-  .footer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--space-12);
-    padding: var(--space-14, 14px) var(--space-24);
-    border-top: 1px solid var(--dividers-border);
-    background: var(--surface-ui-element-light-alpha);
-    color: var(--text-icons-tertiary);
-    font: 500 11px/1.4 'Mona Sans', sans-serif;
-    letter-spacing: 0.04em;
-  }
-  .footer .legend {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-16);
-  }
-  .footer .legend-item {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-8);
-  }
-  .footer .swatch {
-    width: 10px;
-    height: 10px;
-    border-radius: 2px;
-  }
-  .footer .swatch.under { background: var(--text-icons-green); }
-  .footer .swatch.over  { background: var(--text-icons-tertiary); }
-  .footer .swatch.push  { background: var(--surface-ui-element); border: 1px solid var(--dividers-border); }
-  .footer .meta { font-variant-numeric: tabular-nums; }
-
-  @media (max-width: 900px) {
-    .kpis { grid-template-columns: repeat(2, 1fr); }
-    h1.title { font-size: 32px; }
-    .callout { grid-template-columns: 1fr; text-align: left; }
-    .callout .stat { border-left: 0; border-top: 1px solid var(--dividers-border); padding-left: 0; padding-top: var(--space-16); text-align: left; }
-  }
-  @media (max-width: 600px) {
-    .page { padding: var(--space-24) var(--space-16); }
-    .kpis { grid-template-columns: 1fr; }
-    table.dr thead th, table.dr tbody td { padding: var(--space-12); font-size: 13px; }
-  }
-</style>
-</head>
-<body>
-
-  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-    <span id="themeLabel">Light</span>
-  </button>
-
-  <main class="page">
-
-    <header class="header">
-      <h1 class="title">NFL Double-Digit Win Totals</h1>
-      <p class="subhead">Over/under outcomes for teams set with a season win total of 10 or more — sorted by date range.</p>
-    </header>
-
-    <section class="card" aria-label="Full breakdown by date range">
-      <div class="card-head">
-        <span class="head-title">By Date Range</span>
-        <span class="head-meta">4 Windows · 212 Teams Total</span>
+    <!-- Footer -->
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding:14px 24px;border-top:1px solid #dedfe4;background:rgba(164,164,170,0.08);font:500 11px/1.4 'Mona Sans',-apple-system,sans-serif;color:#a4a4aa;letter-spacing:0.04em;">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px;">
+        <span style="display:inline-flex;align-items:center;gap:8px;"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#009c46;"></span>Under cashed</span>
+        <span style="display:inline-flex;align-items:center;gap:8px;"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#a4a4aa;"></span>Over cashed</span>
+        <span style="display:inline-flex;align-items:center;gap:8px;"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#ebecf0;border:1px solid #dedfe4;"></span>Push</span>
       </div>
+      <div style="font-variant-numeric:tabular-nums;">Source: Action Network Research &middot; Through 2025 season</div>
+    </div>
 
-      <table class="dr">
-        <thead>
-          <tr>
-            <th>Date Range</th>
-            <th>Over</th>
-            <th>Under</th>
-            <th>Push</th>
-            <th>Diff</th>
-            <th>Teams</th>
-            <th>Over %</th>
-            <th>Diff / Team</th>
-          </tr>
-        </thead>
-        <tbody id="tbody"></tbody>
-      </table>
-
-      <footer class="footer">
-        <div class="legend">
-          <span class="legend-item"><span class="swatch under"></span>Under cashed</span>
-          <span class="legend-item"><span class="swatch over"></span>Over cashed</span>
-          <span class="legend-item"><span class="swatch push"></span>Push</span>
-        </div>
-        <div class="meta">Source: Action Network Research · Through 2025 season</div>
-      </footer>
-    </section>
-
-  </main>
-
-<script>
-  const ROWS = [
-    { label: '17-Game Era',     sub: '2021 – 2025',  o: 19, u: 25,  p: 0,  diff: 16.5,  teams: 44,  opct: 43.2, perDiff: 0.38 },
-    { label: 'Last 10 Seasons', sub: '2016 – 2025',  o: 29, u: 41,  p: 1,  diff: 37.0,  teams: 71,  opct: 41.4, perDiff: 0.52 },
-    { label: 'Last 20 Seasons', sub: '2006 – 2025',  o: 56, u: 71,  p: 4,  diff: 66.5,  teams: 131, opct: 44.1, perDiff: 0.51 },
-    { label: 'Since 1990',      sub: '1990 – 2025',  o: 86, u: 116, p: 10, diff: 129.5, teams: 212, opct: 42.6, perDiff: 0.61 },
-  ];
-
-  // Table rows
-  const tbody = document.getElementById('tbody');
-  ROWS.forEach(r => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>
-        ${r.label}
-        <span class="label-sub">${r.sub}</span>
-      </td>
-      <td class="col-over">${r.o}</td>
-      <td class="col-under">${r.u}</td>
-      <td class="col-push">${r.p}</td>
-      <td class="col-diff">+${r.diff.toFixed(1)}</td>
-      <td>${r.teams}</td>
-      <td class="col-opct">${r.opct.toFixed(1)}%</td>
-      <td class="col-perdiff">+${r.perDiff.toFixed(2)}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-
-  // Theme toggle
-  const root = document.documentElement;
-  const btn = document.getElementById('themeToggle');
-  const label = document.getElementById('themeLabel');
-  const saved = localStorage.getItem('an-theme');
-  if (saved) root.dataset.theme = saved;
-  const updateLabel = () => label.textContent = root.dataset.theme === 'dark' ? 'Light' : 'Dark';
-  updateLabel();
-  btn.addEventListener('click', () => {
-    root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-    localStorage.setItem('an-theme', root.dataset.theme);
-    updateLabel();
-  });
-</script>
-</body>
-</html>
+  </div>
+</div>
