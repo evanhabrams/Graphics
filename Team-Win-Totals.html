@@ -1,442 +1,256 @@
-<!doctype html>
-<html lang="en" data-theme="light">
-<head>
-<meta charset="utf-8" />
-<title>NFL Double-Digit Win Totals By Team — Action Network</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --space-4: 4px; --space-8: 8px; --space-12: 12px; --space-16: 16px;
-    --space-20: 20px; --space-24: 24px; --space-32: 32px; --space-48: 48px; --space-64: 64px;
-    --radius-4: 4px; --radius-8: 8px; --radius-12: 12px; --radius-16: 16px; --radius-full: 9999px;
-    --height-32: 32px;
-
-    --surface-background: #ebecf0;
-    --surface-foreground: #f7f8fd;
-    --surface-ui-element: #ebecf0;
-    --surface-ui-element-light: #eeeff4;
-    --surface-ui-element-light-alpha: rgba(164, 164, 170, 0.08);
-    --surface-inverted: #22222b;
-    --surface-brand: #00c358;
-
-    --text-icons-primary: #1d1d25;
-    --text-icons-secondary: #818188;
-    --text-icons-tertiary: #a4a4aa;
-    --text-icons-inverted: #f7f8fd;
-    --text-icons-always-white: #f7f8fd;
-    --text-icons-always-white-80: rgba(247, 248, 253, 0.8);
-
-    --dividers-border: #dedfe4;
-
-    --shadows-raised-1: 0px 2px 4px 0px rgba(0,0,0,0.14), 0px 0px 2px 0px rgba(0,0,0,0.12);
-    --shadows-overlay: 0px 4px 8px 3px rgba(0,0,0,0.15), 0px 1px 3px 0px rgba(0,0,0,0.3);
+  .ddwt2, .ddwt2 *, .ddwt2 *::before, .ddwt2 *::after { box-sizing: border-box; }
+  .ddwt2 { font-family: 'Mona Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 1120px; margin: 24px auto; color: #1d1d25; font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased; }
+  .ddwt2 .ddwt2-head { margin-bottom: 16px; }
+  .ddwt2 h2 { margin: 0 0 6px; font: 700 32px/1.05 'Mona Sans', -apple-system, sans-serif; letter-spacing: -0.02em; color: #1d1d25; }
+  .ddwt2 .ddwt2-sub { margin: 0; font: 500 14px/1.4 'Mona Sans', -apple-system, sans-serif; color: #818188; max-width: 760px; }
+  .ddwt2 .ddwt2-card { background: #f7f8fd; border: 1px solid #dedfe4; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.14), 0 0 2px rgba(0,0,0,0.12); }
+  .ddwt2 .ddwt2-cardhead { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 24px; background: #00c358; }
+  .ddwt2 .ddwt2-cardhead .ht { font: 700 13px/1.1 'Mona Sans', -apple-system, sans-serif; color: #f7f8fd; letter-spacing: 0.14em; text-transform: uppercase; }
+  .ddwt2 .ddwt2-cardhead .hm { font: 600 11px/1.2 'Mona Sans', -apple-system, sans-serif; color: rgba(247,248,253,0.85); letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
+  .ddwt2 .ddwt2-plot { padding: 20px 16px 8px; }
+  .ddwt2 svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .ddwt2 svg .bar { transition: opacity 120ms ease-out; }
+  .ddwt2 svg .bargrp:hover .bar { opacity: 0.82; }
+  .ddwt2 .ddwt2-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 24px; border-top: 1px solid #dedfe4; background: rgba(164,164,170,0.08); color: #a4a4aa; font: 500 11px/1.4 'Mona Sans', -apple-system, sans-serif; letter-spacing: 0.04em; }
+  @media (max-width: 640px) {
+    .ddwt2 h2 { font-size: 24px; }
+    .ddwt2 .ddwt2-cardhead { padding: 12px 16px; }
+    .ddwt2 .ddwt2-cardhead .ht { font-size: 11px; letter-spacing: 0.1em; }
+    .ddwt2 .ddwt2-cardhead .hm { font-size: 9px; }
+    .ddwt2 .ddwt2-plot { padding: 12px 8px 4px; }
+    .ddwt2 .ddwt2-foot { padding: 10px 16px; font-size: 10px; }
   }
 </style>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<style>
-  *, *::before, *::after { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
 
-  body {
-    font-family: 'Mona Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: #ffffff;
-    color: var(--text-icons-primary);
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
+<div class="ddwt2">
+  <div class="ddwt2-head">
+    <h2>NFL Double-Digit Win Totals By Team</h2>
+    <p class="ddwt2-sub">Wild Card Era (Since 1990) &mdash; number of seasons each franchise opened with a win total of 10 or more. Hover a bar for the most recent qualifying season.</p>
+  </div>
+  <div class="ddwt2-card">
+    <div class="ddwt2-cardhead">
+      <span class="ht">Total Seasons With Double-Digit Win Total</span>
+      <span class="hm">32 Teams &middot; 1990&ndash;2025</span>
+    </div>
+    <div class="ddwt2-plot">
+      <svg viewBox="0 0 1024 360" preserveAspectRatio="xMidYMid meet" role="img" aria-label="NFL teams ranked by number of seasons with a double-digit win total since 1990">
+        <g stroke="#dedfe4" stroke-width="1">
+          <line x1="32" x2="1020" y1="30" y2="30" stroke-dasharray="2 4"/>
+          <line x1="32" x2="1020" y1="92.5" y2="92.5" stroke-dasharray="2 4"/>
+          <line x1="32" x2="1020" y1="155" y2="155" stroke-dasharray="2 4"/>
+          <line x1="32" x2="1020" y1="217.5" y2="217.5" stroke-dasharray="2 4"/>
+          <line x1="32" x2="1020" y1="280" y2="280" stroke="#a4a4aa"/>
+        </g>
+        <g font-family="Mona Sans, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#a4a4aa" text-anchor="end">
+          <text x="26" y="34">20</text>
+          <text x="26" y="96.5">15</text>
+          <text x="26" y="159">10</text>
+          <text x="26" y="221.5">5</text>
+          <text x="26" y="284">0</text>
+        </g>
+        <g font-family="Mona Sans, -apple-system, sans-serif">
 
-  .page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: var(--space-48) var(--space-32) var(--space-64);
-  }
+          <g class="bargrp"><title>49ers — 20 seasons · Most recent 2024</title>
+            <rect class="bar" x="36.4" y="30" width="22" height="250" rx="3" fill="#AA0000"/>
+            <text x="47.4" y="22" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">20</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" x="35.4" y="290" width="24" height="24"/>
+            <text x="47.4" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">SF</text>
+          </g>
+          <g class="bargrp"><title>Packers — 18 seasons · Most recent 2023</title>
+            <rect class="bar" x="67.3" y="55" width="22" height="225" rx="3" fill="#203731"/>
+            <text x="78.3" y="47" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">18</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png" x="66.3" y="290" width="24" height="24"/>
+            <text x="78.3" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">GB</text>
+          </g>
+          <g class="bargrp"><title>Patriots — 17 seasons · Most recent 2019</title>
+            <rect class="bar" x="98.2" y="67.5" width="22" height="212.5" rx="3" fill="#002244"/>
+            <text x="109.2" y="59.5" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">17</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" x="97.2" y="290" width="24" height="24"/>
+            <text x="109.2" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">NE</text>
+          </g>
+          <g class="bargrp"><title>Eagles — 15 seasons · Most recent 2024</title>
+            <rect class="bar" x="129.1" y="92.5" width="22" height="187.5" rx="3" fill="#004C54"/>
+            <text x="140.1" y="84.5" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">15</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" x="128.1" y="290" width="24" height="24"/>
+            <text x="140.1" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">PHI</text>
+          </g>
+          <g class="bargrp"><title>Broncos — 11 seasons · Most recent 2015</title>
+            <rect class="bar" x="159.9" y="142.5" width="22" height="137.5" rx="3" fill="#FB4F14"/>
+            <text x="170.9" y="134.5" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">11</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" x="158.9" y="290" width="24" height="24"/>
+            <text x="170.9" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">DEN</text>
+          </g>
+          <g class="bargrp"><title>Chiefs — 11 seasons · Most recent 2025</title>
+            <rect class="bar" x="190.8" y="142.5" width="22" height="137.5" rx="3" fill="#E31837"/>
+            <text x="201.8" y="134.5" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">11</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" x="189.8" y="290" width="24" height="24"/>
+            <text x="201.8" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">KC</text>
+          </g>
+          <g class="bargrp"><title>Colts — 11 seasons · Most recent 2014</title>
+            <rect class="bar" x="221.7" y="142.5" width="22" height="137.5" rx="3" fill="#002C5F"/>
+            <text x="232.7" y="134.5" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">11</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png" x="220.7" y="290" width="24" height="24"/>
+            <text x="232.7" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">IND</text>
+          </g>
+          <g class="bargrp"><title>Cowboys — 11 seasons · Most recent 2023</title>
+            <rect class="bar" x="252.6" y="142.5" width="22" height="137.5" rx="3" fill="#003594"/>
+            <text x="263.6" y="134.5" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">11</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" x="251.6" y="290" width="24" height="24"/>
+            <text x="263.6" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">DAL</text>
+          </g>
+          <g class="bargrp"><title>Ravens — 11 seasons · Most recent 2024</title>
+            <rect class="bar" x="283.5" y="142.5" width="22" height="137.5" rx="3" fill="#241773"/>
+            <text x="294.5" y="134.5" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">11</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" x="282.5" y="290" width="24" height="24"/>
+            <text x="294.5" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">BAL</text>
+          </g>
+          <g class="bargrp"><title>Steelers — 10 seasons · Most recent 2020</title>
+            <rect class="bar" x="314.4" y="155" width="22" height="125" rx="3" fill="#FFB612" stroke="#dedfe4" stroke-width="0.75"/>
+            <text x="325.4" y="147" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">10</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png" x="313.4" y="290" width="24" height="24"/>
+            <text x="325.4" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">PIT</text>
+          </g>
+          <g class="bargrp"><title>Rams — 8 seasons · Most recent 2022</title>
+            <rect class="bar" x="345.2" y="180" width="22" height="100" rx="3" fill="#003594"/>
+            <text x="356.2" y="172" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">8</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" x="344.2" y="290" width="24" height="24"/>
+            <text x="356.2" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">LAR</text>
+          </g>
+          <g class="bargrp"><title>Bills — 7 seasons · Most recent 2024</title>
+            <rect class="bar" x="376.1" y="192.5" width="22" height="87.5" rx="3" fill="#00338D"/>
+            <text x="387.1" y="184.5" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">7</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" x="375.1" y="290" width="24" height="24"/>
+            <text x="387.1" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">BUF</text>
+          </g>
+          <g class="bargrp"><title>Chargers — 7 seasons · Most recent 2024</title>
+            <rect class="bar" x="407" y="192.5" width="22" height="87.5" rx="3" fill="#0080C6"/>
+            <text x="418" y="184.5" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">7</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" x="406" y="290" width="24" height="24"/>
+            <text x="418" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">LAC</text>
+          </g>
+          <g class="bargrp"><title>Seahawks — 6 seasons · Most recent 2020</title>
+            <rect class="bar" x="437.9" y="205" width="22" height="75" rx="3" fill="#002244"/>
+            <text x="448.9" y="197" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">6</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/sea.png" x="436.9" y="290" width="24" height="24"/>
+            <text x="448.9" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">SEA</text>
+          </g>
+          <g class="bargrp"><title>Buccaneers — 5 seasons · Most recent 2022</title>
+            <rect class="bar" x="468.8" y="217.5" width="22" height="62.5" rx="3" fill="#D50A0A"/>
+            <text x="479.8" y="209.5" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">5</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/tb.png" x="467.8" y="290" width="24" height="24"/>
+            <text x="479.8" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">TB</text>
+          </g>
+          <g class="bargrp"><title>Saints — 5 seasons · Most recent 2020</title>
+            <rect class="bar" x="499.7" y="217.5" width="22" height="62.5" rx="3" fill="#D3BC8D" stroke="#a4a4aa" stroke-width="0.5"/>
+            <text x="510.7" y="209.5" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">5</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/no.png" x="498.7" y="290" width="24" height="24"/>
+            <text x="510.7" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">NO</text>
+          </g>
+          <g class="bargrp"><title>Jaguars — 4 seasons · Most recent 2023</title>
+            <rect class="bar" x="530.5" y="230" width="22" height="50" rx="3" fill="#006778"/>
+            <text x="541.5" y="222" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">4</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" x="529.5" y="290" width="24" height="24"/>
+            <text x="541.5" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">JAX</text>
+          </g>
+          <g class="bargrp"><title>Titans — 4 seasons · Most recent 2022</title>
+            <rect class="bar" x="561.4" y="230" width="22" height="50" rx="3" fill="#0C2340"/>
+            <text x="572.4" y="222" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">4</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png" x="560.4" y="290" width="24" height="24"/>
+            <text x="572.4" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">TEN</text>
+          </g>
+          <g class="bargrp"><title>Dolphins — 3 seasons · Most recent 2023</title>
+            <rect class="bar" x="592.3" y="242.5" width="22" height="37.5" rx="3" fill="#008E97"/>
+            <text x="603.3" y="234.5" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">3</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" x="591.3" y="290" width="24" height="24"/>
+            <text x="603.3" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">MIA</text>
+          </g>
+          <g class="bargrp"><title>Falcons — 3 seasons · Most recent 2017</title>
+            <rect class="bar" x="623.2" y="242.5" width="22" height="37.5" rx="3" fill="#A71930"/>
+            <text x="634.2" y="234.5" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">3</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/atl.png" x="622.2" y="290" width="24" height="24"/>
+            <text x="634.2" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">ATL</text>
+          </g>
+          <g class="bargrp"><title>Giants — 3 seasons · Most recent 2012</title>
+            <rect class="bar" x="654.1" y="242.5" width="22" height="37.5" rx="3" fill="#0B2265"/>
+            <text x="665.1" y="234.5" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">3</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png" x="653.1" y="290" width="24" height="24"/>
+            <text x="665.1" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">NYG</text>
+          </g>
+          <g class="bargrp"><title>Panthers — 3 seasons · Most recent 2017</title>
+            <rect class="bar" x="685" y="242.5" width="22" height="37.5" rx="3" fill="#0085CA"/>
+            <text x="696" y="234.5" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">3</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/car.png" x="684" y="290" width="24" height="24"/>
+            <text x="696" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">CAR</text>
+          </g>
+          <g class="bargrp"><title>Vikings — 3 seasons · Most recent 2024</title>
+            <rect class="bar" x="715.8" y="242.5" width="22" height="37.5" rx="3" fill="#4F2683"/>
+            <text x="726.8" y="234.5" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">3</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/min.png" x="714.8" y="290" width="24" height="24"/>
+            <text x="726.8" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">MIN</text>
+          </g>
+          <g class="bargrp"><title>Bengals — 2 seasons · Most recent 2023</title>
+            <rect class="bar" x="746.7" y="255" width="22" height="25" rx="3" fill="#FB4F14"/>
+            <text x="757.7" y="247" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">2</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" x="745.7" y="290" width="24" height="24"/>
+            <text x="757.7" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">CIN</text>
+          </g>
+          <g class="bargrp"><title>Browns — 2 seasons · Most recent 2023</title>
+            <rect class="bar" x="777.6" y="255" width="22" height="25" rx="3" fill="#311D00"/>
+            <text x="788.6" y="247" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">2</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/cle.png" x="776.6" y="290" width="24" height="24"/>
+            <text x="788.6" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">CLE</text>
+          </g>
+          <g class="bargrp"><title>Commanders — 2 seasons · Most recent 2025</title>
+            <rect class="bar" x="808.5" y="255" width="22" height="25" rx="3" fill="#5A1414"/>
+            <text x="819.5" y="247" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">2</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png" x="807.5" y="290" width="24" height="24"/>
+            <text x="819.5" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">WSH</text>
+          </g>
+          <g class="bargrp"><title>Jets — 2 seasons · Most recent 2024</title>
+            <rect class="bar" x="839.4" y="255" width="22" height="25" rx="3" fill="#125740"/>
+            <text x="850.4" y="247" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">2</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png" x="838.4" y="290" width="24" height="24"/>
+            <text x="850.4" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">NYJ</text>
+          </g>
+          <g class="bargrp"><title>Lions — 2 seasons · Most recent 2024</title>
+            <rect class="bar" x="870.3" y="255" width="22" height="25" rx="3" fill="#0076B6"/>
+            <text x="881.3" y="247" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">2</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/det.png" x="869.3" y="290" width="24" height="24"/>
+            <text x="881.3" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">DET</text>
+          </g>
+          <g class="bargrp"><title>Raiders — 2 seasons · Most recent 2003</title>
+            <rect class="bar" x="901.1" y="255" width="22" height="25" rx="3" fill="#000000"/>
+            <text x="912.1" y="247" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">2</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" x="900.1" y="290" width="24" height="24"/>
+            <text x="912.1" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">LV</text>
+          </g>
+          <g class="bargrp"><title>Texans — 2 seasons · Most recent 2024</title>
+            <rect class="bar" x="932" y="255" width="22" height="25" rx="3" fill="#03202F"/>
+            <text x="943" y="247" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">2</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" x="931" y="290" width="24" height="24"/>
+            <text x="943" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">HOU</text>
+          </g>
+          <g class="bargrp"><title>Bears — 1 season · Most recent 2006</title>
+            <rect class="bar" x="962.9" y="267.5" width="22" height="12.5" rx="3" fill="#0B162A"/>
+            <text x="973.9" y="259.5" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">1</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/chi.png" x="961.9" y="290" width="24" height="24"/>
+            <text x="973.9" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">CHI</text>
+          </g>
+          <g class="bargrp"><title>Cardinals — 1 season · Most recent 2015</title>
+            <rect class="bar" x="993.8" y="267.5" width="22" height="12.5" rx="3" fill="#97233F"/>
+            <text x="1004.8" y="259.5" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">1</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/ari.png" x="992.8" y="290" width="24" height="24"/>
+            <text x="1004.8" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">ARI</text>
+          </g>
 
-  .header { margin-bottom: var(--space-24); }
-  h1.title {
-    margin: 0 0 var(--space-8);
-    font-size: 32px;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    font-weight: 700;
-    color: var(--text-icons-primary);
-  }
-  .subhead {
-    margin: 0;
-    color: var(--text-icons-secondary);
-    font-size: 14px;
-    font-weight: 500;
-    max-width: 760px;
-  }
-
-  .card {
-    background: var(--surface-foreground);
-    border: 1px solid var(--dividers-border);
-    border-radius: var(--radius-16);
-    overflow: hidden;
-    box-shadow: var(--shadows-raised-1);
-  }
-  .card-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-12);
-    padding: 14px var(--space-24);
-    background: var(--surface-brand);
-  }
-  .card-head .head-title {
-    font: 700 13px/1 'Mona Sans', sans-serif;
-    color: var(--text-icons-always-white);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-  .card-head .head-meta {
-    font: 600 11px/1 'Mona Sans', sans-serif;
-    color: var(--text-icons-always-white-80);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .chart-wrap {
-    padding: 140px var(--space-24) var(--space-20);
-    background: var(--surface-foreground);
-  }
-  .chart {
-    display: flex;
-    align-items: flex-end;
-    gap: 6px;
-    height: 280px;
-    position: relative;
-    border-bottom: 1px solid var(--dividers-border);
-    transition: min-width 250ms ease-out;
-  }
-  .chart.expanded { min-width: 1024px; }
-  .chart::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(to top, transparent 0, transparent calc(25% - 1px), var(--dividers-border) calc(25% - 1px), var(--dividers-border) 25%, transparent 25%),
-      linear-gradient(to top, transparent 0, transparent calc(50% - 1px), var(--dividers-border) calc(50% - 1px), var(--dividers-border) 50%, transparent 50%),
-      linear-gradient(to top, transparent 0, transparent calc(75% - 1px), var(--dividers-border) calc(75% - 1px), var(--dividers-border) 75%, transparent 75%);
-    opacity: 0.5;
-    pointer-events: none;
-  }
-
-  .col {
-    flex: 1 1 0;
-    min-width: 24px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    position: relative;
-  }
-  .chart:not(.expanded) .col[data-overflow="1"],
-  .x-labels:not(.expanded) .xc[data-overflow="1"] { display: none; }
-  .bar {
-    width: 100%;
-    max-width: 26px;
-    background: var(--bar-color, var(--text-icons-secondary));
-    border-radius: 3px 3px 0 0;
-    transition: height 500ms cubic-bezier(.2,.7,.2,1), filter 150ms ease-out;
-    box-shadow: inset 0 -1px 0 rgba(0,0,0,0.08);
-  }
-  .col[data-light="1"] .bar {
-    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
-  }
-  .col:hover .bar { filter: brightness(1.1); }
-
-  .val {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: var(--bar-h, 0px);
-    margin-bottom: 4px;
-    font: 700 11px/1 'Mona Sans', sans-serif;
-    color: var(--text-icons-primary);
-    font-variant-numeric: tabular-nums;
-    pointer-events: none;
-  }
-
-  .tip {
-    position: absolute;
-    left: 50%;
-    bottom: calc(var(--bar-h, 0px) + 22px);
-    transform: translateX(-50%);
-    background: var(--surface-inverted);
-    color: var(--text-icons-inverted);
-    padding: 8px 12px;
-    border-radius: 8px;
-    white-space: nowrap;
-    font: 500 12px/1.3 'Mona Sans', sans-serif;
-    box-shadow: var(--shadows-overlay);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 120ms ease-out, transform 120ms ease-out;
-    z-index: 5;
-  }
-  .col[data-tip-align="left"] .tip { left: 0; transform: translateX(0); }
-  .col[data-tip-align="left"] .tip::after { left: 13px; transform: translateX(-50%); }
-  .col[data-tip-align="right"] .tip { left: auto; right: 0; transform: translateX(0); }
-  .col[data-tip-align="right"] .tip::after { left: auto; right: 13px; transform: translateX(50%); }
-  .tip strong {
-    display: block;
-    font-weight: 700;
-    font-size: 13px;
-    margin-bottom: 2px;
-    font-variant-numeric: tabular-nums;
-  }
-  .tip .tip-meta {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-icons-tertiary);
-  }
-  .tip::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 5px solid transparent;
-    border-top-color: var(--surface-inverted);
-  }
-  .col:hover .tip { opacity: 1; transform: translateX(-50%) translateY(-2px); }
-  .col[data-tip-align="left"]:hover .tip,
-  .col[data-tip-align="right"]:hover .tip { transform: translateY(-2px); }
-
-  .x-labels {
-    display: flex;
-    gap: 6px;
-    padding: var(--space-12) var(--space-24) var(--space-20);
-    background: var(--surface-foreground);
-    transition: min-width 250ms ease-out;
-  }
-  .x-labels.expanded { min-width: 1024px; }
-  .x-labels .xc {
-    flex: 1 1 0;
-    min-width: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-  }
-  .x-labels .xc img { width: 24px; height: 24px; object-fit: contain; display: block; }
-  .x-labels .xc .abbr {
-    font: 600 10px/1 'Mona Sans', sans-serif;
-    color: var(--text-icons-tertiary);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .scroll-wrap { overflow-x: auto; }
-  .scroll-wrap > .chart-wrap,
-  .scroll-wrap > .x-labels { padding-left: var(--space-24); padding-right: var(--space-24); }
-
-  .expand-toggle-wrap {
-    display: flex;
-    justify-content: center;
-    padding: 0 var(--space-24) var(--space-20);
-    background: var(--surface-foreground);
-  }
-  .expand-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-8);
-    height: 36px;
-    padding: 0 var(--space-16);
-    border-radius: var(--radius-full);
-    border: 1px solid var(--dividers-border);
-    background: var(--surface-ui-element-light);
-    color: var(--text-icons-primary);
-    font: 600 12px/1 'Mona Sans', sans-serif;
-    letter-spacing: 0.04em;
-    cursor: pointer;
-    transition: background 120ms ease-out, border-color 120ms ease-out;
-  }
-  .expand-toggle:hover {
-    background: var(--surface-ui-element);
-    border-color: var(--text-icons-tertiary);
-  }
-  .expand-toggle .chev { width: 12px; height: 12px; transition: transform 200ms ease-out; }
-  .expand-toggle[aria-expanded="true"] .chev { transform: rotate(180deg); }
-
-  .y-axis {
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 28px;
-    transform: translateX(-32px);
-    pointer-events: none;
-  }
-  .y-axis span {
-    position: absolute;
-    right: 0;
-    font: 600 10px/1 'Mona Sans', sans-serif;
-    color: var(--text-icons-tertiary);
-    font-variant-numeric: tabular-nums;
-  }
-  .y-axis span[data-y="20"] { top: 0; }
-  .y-axis span[data-y="15"] { top: 25%; transform: translateY(-50%); }
-  .y-axis span[data-y="10"] { top: 50%; transform: translateY(-50%); }
-  .y-axis span[data-y="5"]  { top: 75%; transform: translateY(-50%); }
-  .y-axis span[data-y="0"]  { bottom: 0; }
-
-  .footer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--space-12);
-    padding: 14px var(--space-24);
-    border-top: 1px solid var(--dividers-border);
-    background: var(--surface-ui-element-light-alpha);
-    color: var(--text-icons-tertiary);
-    font: 500 11px/1.4 'Mona Sans', sans-serif;
-    letter-spacing: 0.04em;
-  }
-
-  @media (max-width: 720px) {
-    .page { padding: var(--space-24) var(--space-16); }
-    h1.title { font-size: 24px; }
-    .chart-wrap { padding-top: 110px; padding-left: var(--space-16); padding-right: var(--space-16); }
-    .x-labels { padding-left: var(--space-16); padding-right: var(--space-16); }
-    .chart, .x-labels { gap: 4px; }
-    .col, .xc { min-width: 20px; }
-    .bar { max-width: 22px; }
-  }
-</style>
-</head>
-<body>
-
-  <main class="page">
-
-    <header class="header">
-      <h1 class="title">NFL Double-Digit Win Totals By Team</h1>
-      <p class="subhead">Wild Card Era (Since 1990) — number of seasons each franchise opened with a win total of 10 or more. Hover a bar for the most recent qualifying season.</p>
-    </header>
-
-    <section class="card" aria-label="Double-digit win-total seasons by team">
-
-      <div class="card-head">
-        <span class="head-title">Total Seasons With Double-Digit Win Total</span>
-        <span class="head-meta">32 Teams · 1990 – 2025</span>
-      </div>
-
-      <div class="scroll-wrap">
-        <div class="chart-wrap">
-          <div class="chart" id="chart" role="figure" aria-label="Double-digit win-total seasons by team, bar chart">
-            <div class="y-axis" aria-hidden="true">
-              <span data-y="20">20</span>
-              <span data-y="15">15</span>
-              <span data-y="10">10</span>
-              <span data-y="5">5</span>
-              <span data-y="0">0</span>
-            </div>
-          </div>
-        </div>
-        <div class="x-labels" id="xlabels"></div>
-      </div>
-
-      <div class="expand-toggle-wrap">
-        <button class="expand-toggle" id="expandToggle" aria-expanded="false" aria-controls="chart xlabels">
-          <span id="expandLabel">Show all 32 teams</span>
-          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </button>
-      </div>
-
-      <footer class="footer">
-        <div>Bars colored by team primary mark · Hover for most recent qualifying season</div>
-      </footer>
-
-    </section>
-
-  </main>
-
-<script>
-  const TEAMS = [
-    { name: '49ers',      abbr: 'sf',  count: 20, color: '#AA0000', recent: 2024 },
-    { name: 'Packers',    abbr: 'gb',  count: 18, color: '#203731', recent: 2023 },
-    { name: 'Patriots',   abbr: 'ne',  count: 17, color: '#002244', recent: 2019 },
-    { name: 'Eagles',     abbr: 'phi', count: 15, color: '#004C54', recent: 2024 },
-    { name: 'Broncos',    abbr: 'den', count: 11, color: '#FB4F14', recent: 2015 },
-    { name: 'Chiefs',     abbr: 'kc',  count: 11, color: '#E31837', recent: 2025 },
-    { name: 'Colts',      abbr: 'ind', count: 11, color: '#002C5F', recent: 2014 },
-    { name: 'Cowboys',    abbr: 'dal', count: 11, color: '#003594', recent: 2023 },
-    { name: 'Ravens',     abbr: 'bal', count: 11, color: '#241773', recent: 2024 },
-    { name: 'Steelers',   abbr: 'pit', count: 10, color: '#FFB612', recent: 2020 },
-    { name: 'Rams',       abbr: 'lar', count:  8, color: '#003594', recent: 2022 },
-    { name: 'Bills',      abbr: 'buf', count:  7, color: '#00338D', recent: 2024 },
-    { name: 'Chargers',   abbr: 'lac', count:  7, color: '#0080C6', recent: 2024 },
-    { name: 'Seahawks',   abbr: 'sea', count:  6, color: '#002244', recent: 2020 },
-    { name: 'Buccaneers', abbr: 'tb',  count:  5, color: '#D50A0A', recent: 2022 },
-    { name: 'Saints',     abbr: 'no',  count:  5, color: '#D3BC8D', recent: 2020 },
-    { name: 'Jaguars',    abbr: 'jax', count:  4, color: '#006778', recent: 2023 },
-    { name: 'Titans',     abbr: 'ten', count:  4, color: '#0C2340', recent: 2022 },
-    { name: 'Dolphins',   abbr: 'mia', count:  3, color: '#008E97', recent: 2023 },
-    { name: 'Falcons',    abbr: 'atl', count:  3, color: '#A71930', recent: 2017 },
-    { name: 'Giants',     abbr: 'nyg', count:  3, color: '#0B2265', recent: 2012 },
-    { name: 'Panthers',   abbr: 'car', count:  3, color: '#0085CA', recent: 2017 },
-    { name: 'Vikings',    abbr: 'min', count:  3, color: '#4F2683', recent: 2024 },
-    { name: 'Bengals',    abbr: 'cin', count:  2, color: '#FB4F14', recent: 2023 },
-    { name: 'Browns',     abbr: 'cle', count:  2, color: '#311D00', recent: 2023 },
-    { name: 'Commanders', abbr: 'wsh', count:  2, color: '#5A1414', recent: 2025 },
-    { name: 'Jets',       abbr: 'nyj', count:  2, color: '#125740', recent: 2024 },
-    { name: 'Lions',      abbr: 'det', count:  2, color: '#0076B6', recent: 2024 },
-    { name: 'Raiders',    abbr: 'lv',  count:  2, color: '#000000', recent: 2003 },
-    { name: 'Texans',     abbr: 'hou', count:  2, color: '#03202F', recent: 2024 },
-    { name: 'Bears',      abbr: 'chi', count:  1, color: '#0B162A', recent: 2006 },
-    { name: 'Cardinals',  abbr: 'ari', count:  1, color: '#97233F', recent: 2015 },
-  ];
-
-  const MAX = 20;
-  const lightBarKeys = new Set(['pit', 'no']);
-
-  const chart = document.getElementById('chart');
-  const xlabels = document.getElementById('xlabels');
-
-  TEAMS.forEach((t, i) => {
-    const pct = (t.count / MAX) * 100;
-    const col = document.createElement('div');
-    col.className = 'col';
-    if (lightBarKeys.has(t.abbr)) col.dataset.light = '1';
-    if (i >= 10) col.dataset.overflow = '1';
-    if (i < 3) col.dataset.tipAlign = 'left';
-    else if (i >= TEAMS.length - 3) col.dataset.tipAlign = 'right';
-    col.innerHTML = `
-      <div class="bar" style="height:${pct}%;--bar-color:${t.color};"></div>
-      <span class="val" style="--bar-h:${(pct / 100) * 280}px">${t.count}</span>
-      <div class="tip">
-        <strong>${t.count} season${t.count === 1 ? '' : 's'}</strong>
-        <div class="tip-meta">Most recent · ${t.recent}</div>
-      </div>
-    `;
-    col.style.setProperty('--bar-h', `${(pct / 100) * 280}px`);
-    chart.appendChild(col);
-
-    const xc = document.createElement('div');
-    xc.className = 'xc';
-    if (i >= 10) xc.dataset.overflow = '1';
-    xc.innerHTML = `
-      <img src="https://a.espncdn.com/i/teamlogos/nfl/500/${t.abbr}.png" alt="${t.name}" loading="lazy">
-      <span class="abbr">${t.abbr.toUpperCase()}</span>
-    `;
-    xlabels.appendChild(xc);
-  });
-
-  const toggleBtn = document.getElementById('expandToggle');
-  const toggleLabel = document.getElementById('expandLabel');
-  toggleBtn.addEventListener('click', () => {
-    const expanded = chart.classList.toggle('expanded');
-    xlabels.classList.toggle('expanded', expanded);
-    toggleBtn.setAttribute('aria-expanded', String(expanded));
-    toggleLabel.textContent = expanded ? 'Show top 10 only' : 'Show all 32 teams';
-  });
-</script>
-</body>
-</html>
+        </g>
+      </svg>
+    </div>
+    <div class="ddwt2-foot">
+      <div>Bars colored by team primary mark &middot; Hover for the most recent qualifying season</div>
+      <div>Source: Action Network Research</div>
+    </div>
+  </div>
+</div>
