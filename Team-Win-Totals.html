@@ -1,28 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>NFL Double-Digit Win Totals By Team</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  .ddwt2, .ddwt2 *, .ddwt2 *::before, .ddwt2 *::after { box-sizing: border-box; }
-  .ddwt2 { font-family: 'Mona Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 1120px; margin: 24px auto; color: #1d1d25; font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased; }
-  .ddwt2 .ddwt2-head { margin-bottom: 16px; }
+  html, body { margin: 0; padding: 0; background: transparent; }
+  *, *::before, *::after { box-sizing: border-box; }
+  .ddwt2 { font-family: 'Mona Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 1120px; margin: 0 auto; padding: 16px; color: #1d1d25; font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased; }
+  .ddwt2-head { margin-bottom: 16px; }
   .ddwt2 h2 { margin: 0 0 6px; font: 700 32px/1.05 'Mona Sans', -apple-system, sans-serif; letter-spacing: -0.02em; color: #1d1d25; }
-  .ddwt2 .ddwt2-sub { margin: 0; font: 500 14px/1.4 'Mona Sans', -apple-system, sans-serif; color: #818188; max-width: 760px; }
-  .ddwt2 .ddwt2-card { background: #f7f8fd; border: 1px solid #dedfe4; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.14), 0 0 2px rgba(0,0,0,0.12); }
-  .ddwt2 .ddwt2-cardhead { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 24px; background: #00c358; }
-  .ddwt2 .ddwt2-cardhead .ht { font: 700 13px/1.1 'Mona Sans', -apple-system, sans-serif; color: #f7f8fd; letter-spacing: 0.14em; text-transform: uppercase; }
-  .ddwt2 .ddwt2-cardhead .hm { font: 600 11px/1.2 'Mona Sans', -apple-system, sans-serif; color: rgba(247,248,253,0.85); letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
-  .ddwt2 .ddwt2-plot { padding: 20px 16px 8px; }
+  .ddwt2-sub { margin: 0; font: 500 14px/1.4 'Mona Sans', -apple-system, sans-serif; color: #818188; max-width: 760px; }
+  .ddwt2-card { background: #f7f8fd; border: 1px solid #dedfe4; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.14), 0 0 2px rgba(0,0,0,0.12); }
+  .ddwt2-cardhead { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 24px; background: #00c358; }
+  .ddwt2-cardhead .ht { font: 700 13px/1.1 'Mona Sans', -apple-system, sans-serif; color: #f7f8fd; letter-spacing: 0.14em; text-transform: uppercase; }
+  .ddwt2-cardhead .hm { font: 600 11px/1.2 'Mona Sans', -apple-system, sans-serif; color: rgba(247,248,253,0.85); letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
+  .ddwt2-plot { padding: 20px 16px 8px; }
   .ddwt2 svg { display: block; width: 100%; height: auto; overflow: visible; }
   .ddwt2 svg .bar { transition: opacity 120ms ease-out; }
   .ddwt2 svg .bargrp:hover .bar { opacity: 0.82; }
-  .ddwt2 .ddwt2-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 24px; border-top: 1px solid #dedfe4; background: rgba(164,164,170,0.08); color: #a4a4aa; font: 500 11px/1.4 'Mona Sans', -apple-system, sans-serif; letter-spacing: 0.04em; }
+  .ddwt2-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 24px; border-top: 1px solid #dedfe4; background: rgba(164,164,170,0.08); color: #a4a4aa; font: 500 11px/1.4 'Mona Sans', -apple-system, sans-serif; letter-spacing: 0.04em; }
   @media (max-width: 640px) {
-    .ddwt2 h2 { font-size: 24px; }
-    .ddwt2 .ddwt2-cardhead { padding: 12px 16px; }
-    .ddwt2 .ddwt2-cardhead .ht { font-size: 11px; letter-spacing: 0.1em; }
-    .ddwt2 .ddwt2-cardhead .hm { font-size: 9px; }
-    .ddwt2 .ddwt2-plot { padding: 12px 8px 4px; }
-    .ddwt2 .ddwt2-foot { padding: 10px 16px; font-size: 10px; }
+    .ddwt2 { padding: 12px; }
+    .ddwt2 h2 { font-size: 22px; }
+    .ddwt2-sub { font-size: 13px; }
+    .ddwt2-cardhead { padding: 10px 14px; }
+    .ddwt2-cardhead .ht { font-size: 10px; letter-spacing: 0.1em; }
+    .ddwt2-cardhead .hm { font-size: 9px; letter-spacing: 0.06em; }
+    .ddwt2-plot { padding: 10px 6px 4px; }
+    .ddwt2-foot { padding: 10px 14px; font-size: 10px; gap: 6px; }
   }
 </style>
+</head>
+<body>
 
 <div class="ddwt2">
   <div class="ddwt2-head">
@@ -254,3 +265,24 @@
     </div>
   </div>
 </div>
+
+<script>
+(function(){
+  function postHeight(){
+    try {
+      var h = document.documentElement.scrollHeight;
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({ type: 'ddwt2-height', height: h }, '*');
+      }
+    } catch(e){}
+  }
+  window.addEventListener('load', postHeight);
+  window.addEventListener('resize', postHeight);
+  setTimeout(postHeight, 100);
+  setTimeout(postHeight, 500);
+  setTimeout(postHeight, 1500);
+})();
+</script>
+
+</body>
+</html>
