@@ -4,7 +4,34 @@
 <meta charset="utf-8" />
 <title>NFL Double-Digit Win Totals By Team — Action Network</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="tokens.css" />
+<style>
+  :root {
+    --space-4: 4px; --space-8: 8px; --space-12: 12px; --space-16: 16px;
+    --space-20: 20px; --space-24: 24px; --space-32: 32px; --space-48: 48px; --space-64: 64px;
+    --radius-4: 4px; --radius-8: 8px; --radius-12: 12px; --radius-16: 16px; --radius-full: 9999px;
+    --height-32: 32px;
+
+    --surface-background: #ebecf0;
+    --surface-foreground: #f7f8fd;
+    --surface-ui-element: #ebecf0;
+    --surface-ui-element-light: #eeeff4;
+    --surface-ui-element-light-alpha: rgba(164, 164, 170, 0.08);
+    --surface-inverted: #22222b;
+    --surface-brand: #00c358;
+
+    --text-icons-primary: #1d1d25;
+    --text-icons-secondary: #818188;
+    --text-icons-tertiary: #a4a4aa;
+    --text-icons-inverted: #f7f8fd;
+    --text-icons-always-white: #f7f8fd;
+    --text-icons-always-white-80: rgba(247, 248, 253, 0.8);
+
+    --dividers-border: #dedfe4;
+
+    --shadows-raised-1: 0px 2px 4px 0px rgba(0,0,0,0.14), 0px 0px 2px 0px rgba(0,0,0,0.12);
+    --shadows-overlay: 0px 4px 8px 3px rgba(0,0,0,0.15), 0px 1px 3px 0px rgba(0,0,0,0.3);
+  }
+</style>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -26,7 +53,6 @@
     padding: var(--space-48) var(--space-32) var(--space-64);
   }
 
-  /* Header */
   .header { margin-bottom: var(--space-24); }
   h1.title {
     margin: 0 0 var(--space-8);
@@ -44,7 +70,6 @@
     max-width: 760px;
   }
 
-  /* Card */
   .card {
     background: var(--surface-foreground);
     border: 1px solid var(--dividers-border);
@@ -74,9 +99,7 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* Chart */
   .chart-wrap {
-    /* generous top padding so tooltips don't collide with the header strip */
     padding: 140px var(--space-24) var(--space-20);
     background: var(--surface-foreground);
   }
@@ -85,11 +108,11 @@
     align-items: flex-end;
     gap: 6px;
     height: 280px;
-    min-width: 1024px;
     position: relative;
     border-bottom: 1px solid var(--dividers-border);
+    transition: min-width 250ms ease-out;
   }
-  /* Gridlines */
+  .chart.expanded { min-width: 1024px; }
   .chart::before {
     content: '';
     position: absolute;
@@ -112,6 +135,8 @@
     align-items: center;
     position: relative;
   }
+  .chart:not(.expanded) .col[data-overflow="1"],
+  .x-labels:not(.expanded) .xc[data-overflow="1"] { display: none; }
   .bar {
     width: 100%;
     max-width: 26px;
@@ -120,13 +145,11 @@
     transition: height 500ms cubic-bezier(.2,.7,.2,1), filter 150ms ease-out;
     box-shadow: inset 0 -1px 0 rgba(0,0,0,0.08);
   }
-  /* Soft outline on very-light bars (Steelers gold, Saints gold) for legibility on white */
   .col[data-light="1"] .bar {
     box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
   }
   .col:hover .bar { filter: brightness(1.1); }
 
-  /* Value label sitting on top of each bar */
   .val {
     position: absolute;
     left: 50%;
@@ -139,7 +162,6 @@
     pointer-events: none;
   }
 
-  /* Tooltip */
   .tip {
     position: absolute;
     left: 50%;
@@ -157,25 +179,10 @@
     transition: opacity 120ms ease-out, transform 120ms ease-out;
     z-index: 5;
   }
-  /* Edge-column tooltip alignment so they don't clip off-screen */
-  .col[data-tip-align="left"] .tip {
-    left: 0;
-    transform: translateX(0);
-  }
-  .col[data-tip-align="left"] .tip::after {
-    left: 13px;
-    transform: translateX(-50%);
-  }
-  .col[data-tip-align="right"] .tip {
-    left: auto;
-    right: 0;
-    transform: translateX(0);
-  }
-  .col[data-tip-align="right"] .tip::after {
-    left: auto;
-    right: 13px;
-    transform: translateX(50%);
-  }
+  .col[data-tip-align="left"] .tip { left: 0; transform: translateX(0); }
+  .col[data-tip-align="left"] .tip::after { left: 13px; transform: translateX(-50%); }
+  .col[data-tip-align="right"] .tip { left: auto; right: 0; transform: translateX(0); }
+  .col[data-tip-align="right"] .tip::after { left: auto; right: 13px; transform: translateX(50%); }
   .tip strong {
     display: block;
     font-weight: 700;
@@ -199,23 +206,18 @@
     border: 5px solid transparent;
     border-top-color: var(--surface-inverted);
   }
-  .col:hover .tip {
-    opacity: 1;
-    transform: translateX(-50%) translateY(-2px);
-  }
+  .col:hover .tip { opacity: 1; transform: translateX(-50%) translateY(-2px); }
   .col[data-tip-align="left"]:hover .tip,
-  .col[data-tip-align="right"]:hover .tip {
-    transform: translateY(-2px);
-  }
+  .col[data-tip-align="right"]:hover .tip { transform: translateY(-2px); }
 
-  /* X labels */
   .x-labels {
     display: flex;
     gap: 6px;
     padding: var(--space-12) var(--space-24) var(--space-20);
     background: var(--surface-foreground);
-    min-width: 1024px;
+    transition: min-width 250ms ease-out;
   }
+  .x-labels.expanded { min-width: 1024px; }
   .x-labels .xc {
     flex: 1 1 0;
     min-width: 24px;
@@ -224,12 +226,7 @@
     align-items: center;
     gap: 4px;
   }
-  .x-labels .xc img {
-    width: 24px;
-    height: 24px;
-    object-fit: contain;
-    display: block;
-  }
+  .x-labels .xc img { width: 24px; height: 24px; object-fit: contain; display: block; }
   .x-labels .xc .abbr {
     font: 600 10px/1 'Mona Sans', sans-serif;
     color: var(--text-icons-tertiary);
@@ -238,19 +235,41 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* Single horizontally-scrollable wrapper for chart + labels (they line up) */
-  .scroll-wrap {
-    overflow-x: auto;
-  }
+  .scroll-wrap { overflow-x: auto; }
   .scroll-wrap > .chart-wrap,
   .scroll-wrap > .x-labels { padding-left: var(--space-24); padding-right: var(--space-24); }
 
-  /* Y-axis labels (left edge) */
+  .expand-toggle-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 0 var(--space-24) var(--space-20);
+    background: var(--surface-foreground);
+  }
+  .expand-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-8);
+    height: 36px;
+    padding: 0 var(--space-16);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--dividers-border);
+    background: var(--surface-ui-element-light);
+    color: var(--text-icons-primary);
+    font: 600 12px/1 'Mona Sans', sans-serif;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: background 120ms ease-out, border-color 120ms ease-out;
+  }
+  .expand-toggle:hover {
+    background: var(--surface-ui-element);
+    border-color: var(--text-icons-tertiary);
+  }
+  .expand-toggle .chev { width: 12px; height: 12px; transition: transform 200ms ease-out; }
+  .expand-toggle[aria-expanded="true"] .chev { transform: rotate(180deg); }
+
   .y-axis {
     position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
+    left: 0; top: 0; bottom: 0;
     width: 28px;
     transform: translateX(-32px);
     pointer-events: none;
@@ -262,13 +281,12 @@
     color: var(--text-icons-tertiary);
     font-variant-numeric: tabular-nums;
   }
-  .y-axis span[data-y="20"]  { top: 0; }
-  .y-axis span[data-y="15"]  { top: 25%; transform: translateY(-50%); }
-  .y-axis span[data-y="10"]  { top: 50%; transform: translateY(-50%); }
-  .y-axis span[data-y="5"]   { top: 75%; transform: translateY(-50%); }
-  .y-axis span[data-y="0"]   { bottom: 0; }
+  .y-axis span[data-y="20"] { top: 0; }
+  .y-axis span[data-y="15"] { top: 25%; transform: translateY(-50%); }
+  .y-axis span[data-y="10"] { top: 50%; transform: translateY(-50%); }
+  .y-axis span[data-y="5"]  { top: 75%; transform: translateY(-50%); }
+  .y-axis span[data-y="0"]  { bottom: 0; }
 
-  /* Footer */
   .footer {
     display: flex;
     flex-wrap: wrap;
@@ -282,11 +300,15 @@
     font: 500 11px/1.4 'Mona Sans', sans-serif;
     letter-spacing: 0.04em;
   }
-  .footer .meta { font-variant-numeric: tabular-nums; }
 
   @media (max-width: 720px) {
     .page { padding: var(--space-24) var(--space-16); }
     h1.title { font-size: 24px; }
+    .chart-wrap { padding-top: 110px; padding-left: var(--space-16); padding-right: var(--space-16); }
+    .x-labels { padding-left: var(--space-16); padding-right: var(--space-16); }
+    .chart, .x-labels { gap: 4px; }
+    .col, .xc { min-width: 20px; }
+    .bar { max-width: 22px; }
   }
 </style>
 </head>
@@ -321,6 +343,13 @@
         <div class="x-labels" id="xlabels"></div>
       </div>
 
+      <div class="expand-toggle-wrap">
+        <button class="expand-toggle" id="expandToggle" aria-expanded="false" aria-controls="chart xlabels">
+          <span id="expandLabel">Show all 32 teams</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+      </div>
+
       <footer class="footer">
         <div>Bars colored by team primary mark · Hover for most recent qualifying season</div>
       </footer>
@@ -330,7 +359,6 @@
   </main>
 
 <script>
-  // Teams sorted by count (desc). `recent` = last season with a DD win total (PLACEHOLDER — confirm/replace).
   const TEAMS = [
     { name: '49ers',      abbr: 'sf',  count: 20, color: '#AA0000', recent: 2024 },
     { name: 'Packers',    abbr: 'gb',  count: 18, color: '#203731', recent: 2023 },
@@ -366,7 +394,7 @@
     { name: 'Cardinals',  abbr: 'ari', count:  1, color: '#97233F', recent: 2015 },
   ];
 
-  const MAX = 20; // top of chart y-axis
+  const MAX = 20;
   const lightBarKeys = new Set(['pit', 'no']);
 
   const chart = document.getElementById('chart');
@@ -377,28 +405,37 @@
     const col = document.createElement('div');
     col.className = 'col';
     if (lightBarKeys.has(t.abbr)) col.dataset.light = '1';
-    // Align tooltip to left/right edge for end columns so they don't clip
+    if (i >= 10) col.dataset.overflow = '1';
     if (i < 3) col.dataset.tipAlign = 'left';
     else if (i >= TEAMS.length - 3) col.dataset.tipAlign = 'right';
     col.innerHTML = `
       <div class="bar" style="height:${pct}%;--bar-color:${t.color};"></div>
       <span class="val" style="--bar-h:${(pct / 100) * 280}px">${t.count}</span>
       <div class="tip">
-        <strong>${t.count} seasons</strong>
+        <strong>${t.count} season${t.count === 1 ? '' : 's'}</strong>
         <div class="tip-meta">Most recent · ${t.recent}</div>
       </div>
     `;
-    // Set CSS var for tooltip position too
     col.style.setProperty('--bar-h', `${(pct / 100) * 280}px`);
     chart.appendChild(col);
 
     const xc = document.createElement('div');
     xc.className = 'xc';
+    if (i >= 10) xc.dataset.overflow = '1';
     xc.innerHTML = `
       <img src="https://a.espncdn.com/i/teamlogos/nfl/500/${t.abbr}.png" alt="${t.name}" loading="lazy">
       <span class="abbr">${t.abbr.toUpperCase()}</span>
     `;
     xlabels.appendChild(xc);
+  });
+
+  const toggleBtn = document.getElementById('expandToggle');
+  const toggleLabel = document.getElementById('expandLabel');
+  toggleBtn.addEventListener('click', () => {
+    const expanded = chart.classList.toggle('expanded');
+    xlabels.classList.toggle('expanded', expanded);
+    toggleBtn.setAttribute('aria-expanded', String(expanded));
+    toggleLabel.textContent = expanded ? 'Show top 10 only' : 'Show all 32 teams';
   });
 </script>
 </body>
