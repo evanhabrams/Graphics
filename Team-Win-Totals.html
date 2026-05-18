@@ -20,7 +20,9 @@
   .ddwt2 svg { display: block; width: 100%; height: auto; overflow: visible; }
   .ddwt2 svg .bar { transition: opacity 120ms ease-out; }
   .ddwt2 svg .bargrp:hover .bar { opacity: 0.82; }
+  .ddwt2-svg-mobile { display: none; }
   .ddwt2-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 24px; border-top: 1px solid #dedfe4; background: rgba(164,164,170,0.08); color: #a4a4aa; font: 500 11px/1.4 'Mona Sans', -apple-system, sans-serif; letter-spacing: 0.04em; }
+  .hm-mobile { display: none; }
   @media (max-width: 640px) {
     .ddwt2 { padding: 12px; }
     .ddwt2 h2 { font-size: 22px; }
@@ -30,6 +32,10 @@
     .ddwt2-cardhead .hm { font-size: 9px; letter-spacing: 0.06em; }
     .ddwt2-plot { padding: 10px 6px 4px; }
     .ddwt2-foot { padding: 10px 14px; font-size: 10px; gap: 6px; }
+    .ddwt2-svg-desktop { display: none; }
+    .ddwt2-svg-mobile { display: block; }
+    .hm-desktop { display: none; }
+    .hm-mobile { display: inline; }
   }
 </style>
 </head>
@@ -43,10 +49,11 @@
   <div class="ddwt2-card">
     <div class="ddwt2-cardhead">
       <span class="ht">Total Seasons With Double-Digit Win Total</span>
-      <span class="hm">32 Teams &middot; 1990&ndash;2025</span>
+      <span class="hm hm-desktop">32 Teams &middot; 1990&ndash;2025</span>
+      <span class="hm hm-mobile">Top 10 &middot; 1990&ndash;2025</span>
     </div>
     <div class="ddwt2-plot">
-      <svg viewBox="0 0 1024 360" preserveAspectRatio="xMidYMid meet" role="img" aria-label="NFL teams ranked by number of seasons with a double-digit win total since 1990">
+      <svg class="ddwt2-svg-desktop" viewBox="0 0 1024 360" preserveAspectRatio="xMidYMid meet" role="img" aria-label="NFL teams ranked by number of seasons with a double-digit win total since 1990">
         <g stroke="#dedfe4" stroke-width="1">
           <line x1="32" x2="1020" y1="30" y2="30" stroke-dasharray="2 4"/>
           <line x1="32" x2="1020" y1="92.5" y2="92.5" stroke-dasharray="2 4"/>
@@ -254,6 +261,96 @@
             <text x="1004.8" y="259.5" font-size="11" font-weight="700" text-anchor="middle" fill="#1d1d25">1</text>
             <image href="https://a.espncdn.com/i/teamlogos/nfl/500/ari.png" x="992.8" y="290" width="24" height="24"/>
             <text x="1004.8" y="332" font-size="10" font-weight="600" text-anchor="middle" fill="#a4a4aa">ARI</text>
+          </g>
+
+        </g>
+      </svg>
+
+      <svg class="ddwt2-svg-mobile" viewBox="0 0 1024 400" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Top 10 NFL teams by seasons with a double-digit win total since 1990">
+        <g stroke="#dedfe4" stroke-width="1.2">
+          <line x1="36" x2="1020" y1="30" y2="30" stroke-dasharray="3 5"/>
+          <line x1="36" x2="1020" y1="95" y2="95" stroke-dasharray="3 5"/>
+          <line x1="36" x2="1020" y1="160" y2="160" stroke-dasharray="3 5"/>
+          <line x1="36" x2="1020" y1="225" y2="225" stroke-dasharray="3 5"/>
+          <line x1="36" x2="1020" y1="290" y2="290" stroke="#a4a4aa"/>
+        </g>
+        <g font-family="Mona Sans, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#a4a4aa" text-anchor="end">
+          <text x="30" y="34">20</text>
+          <text x="30" y="99">15</text>
+          <text x="30" y="164">10</text>
+          <text x="30" y="229">5</text>
+          <text x="30" y="294">0</text>
+        </g>
+        <g font-family="Mona Sans, -apple-system, sans-serif">
+
+          <g class="bargrp"><title>49ers — 20 seasons · Most recent 2024</title>
+            <rect class="bar" x="51.4" y="30" width="60" height="260" rx="4" fill="#AA0000"/>
+            <text x="81.4" y="20" font-size="16" font-weight="700" text-anchor="middle" fill="#1d1d25">20</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" x="57.4" y="300" width="48" height="48"/>
+            <text x="81.4" y="378" font-size="18" font-weight="600" text-anchor="middle" fill="#818188">SF</text>
+          </g>
+
+          <g class="bargrp"><title>Packers — 18 seasons · Most recent 2023</title>
+            <rect class="bar" x="150.2" y="56" width="60" height="234" rx="4" fill="#203731"/>
+            <text x="180.2" y="46" font-size="16" font-weight="700" text-anchor="middle" fill="#1d1d25">18</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png" x="156.2" y="300" width="48" height="48"/>
+            <text x="180.2" y="378" font-size="18" font-weight="600" text-anchor="middle" fill="#818188">GB</text>
+          </g>
+
+          <g class="bargrp"><title>Patriots — 17 seasons · Most recent 2019</title>
+            <rect class="bar" x="249" y="69" width="60" height="221" rx="4" fill="#002244"/>
+            <text x="279" y="59" font-size="16" font-weight="700" text-anchor="middle" fill="#1d1d25">17</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" x="255" y="300" width="48" height="48"/>
+            <text x="279" y="378" font-size="18" font-weight="600" text-anchor="middle" fill="#818188">NE</text>
+          </g>
+
+          <g class="bargrp"><title>Eagles — 15 seasons · Most recent 2024</title>
+            <rect class="bar" x="347.8" y="95" width="60" height="195" rx="4" fill="#004C54"/>
+            <text x="377.8" y="85" font-size="16" font-weight="700" text-anchor="middle" fill="#1d1d25">15</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" x="353.8" y="300" width="48" height="48"/>
+            <text x="377.8" y="378" font-size="18" font-weight="600" text-anchor="middle" fill="#818188">PHI</text>
+          </g>
+
+          <g class="bargrp"><title>Broncos — 11 seasons · Most recent 2015</title>
+            <rect class="bar" x="446.6" y="147" width="60" height="143" rx="4" fill="#FB4F14"/>
+            <text x="476.6" y="137" font-size="16" font-weight="700" text-anchor="middle" fill="#1d1d25">11</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" x="452.6" y="300" width="48" height="48"/>
+            <text x="476.6" y="378" font-size="18" font-weight="600" text-anchor="middle" fill="#818188">DEN</text>
+          </g>
+
+          <g class="bargrp"><title>Chiefs — 11 seasons · Most recent 2025</title>
+            <rect class="bar" x="545.4" y="147" width="60" height="143" rx="4" fill="#E31837"/>
+            <text x="575.4" y="137" font-size="16" font-weight="700" text-anchor="middle" fill="#1d1d25">11</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" x="551.4" y="300" width="48" height="48"/>
+            <text x="575.4" y="378" font-size="18" font-weight="600" text-anchor="middle" fill="#818188">KC</text>
+          </g>
+
+          <g class="bargrp"><title>Colts — 11 seasons · Most recent 2014</title>
+            <rect class="bar" x="644.2" y="147" width="60" height="143" rx="4" fill="#002C5F"/>
+            <text x="674.2" y="137" font-size="16" font-weight="700" text-anchor="middle" fill="#1d1d25">11</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png" x="650.2" y="300" width="48" height="48"/>
+            <text x="674.2" y="378" font-size="18" font-weight="600" text-anchor="middle" fill="#818188">IND</text>
+          </g>
+
+          <g class="bargrp"><title>Cowboys — 11 seasons · Most recent 2023</title>
+            <rect class="bar" x="743" y="147" width="60" height="143" rx="4" fill="#003594"/>
+            <text x="773" y="137" font-size="16" font-weight="700" text-anchor="middle" fill="#1d1d25">11</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" x="749" y="300" width="48" height="48"/>
+            <text x="773" y="378" font-size="18" font-weight="600" text-anchor="middle" fill="#818188">DAL</text>
+          </g>
+
+          <g class="bargrp"><title>Ravens — 11 seasons · Most recent 2024</title>
+            <rect class="bar" x="841.8" y="147" width="60" height="143" rx="4" fill="#241773"/>
+            <text x="871.8" y="137" font-size="16" font-weight="700" text-anchor="middle" fill="#1d1d25">11</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" x="847.8" y="300" width="48" height="48"/>
+            <text x="871.8" y="378" font-size="18" font-weight="600" text-anchor="middle" fill="#818188">BAL</text>
+          </g>
+
+          <g class="bargrp"><title>Steelers — 10 seasons · Most recent 2020</title>
+            <rect class="bar" x="940.6" y="160" width="60" height="130" rx="4" fill="#FFB612" stroke="#dedfe4" stroke-width="0.75"/>
+            <text x="970.6" y="150" font-size="16" font-weight="700" text-anchor="middle" fill="#1d1d25">10</text>
+            <image href="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png" x="946.6" y="300" width="48" height="48"/>
+            <text x="970.6" y="378" font-size="18" font-weight="600" text-anchor="middle" fill="#818188">PIT</text>
           </g>
 
         </g>
