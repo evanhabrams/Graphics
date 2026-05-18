@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NFL Double-Digit Win Total Teams</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: transparent;
+    color: #222;
+    line-height: 1.5;
+    padding: 12px;
+  }
+  .dd-container {
+    max-width: 760px;
+    margin: 0 auto;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    background: #ffffff;
+  }
+  .dd-header {
+    background: #00c358;
+    color: #000;
+    padding: 14px 18px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+  }
+  .dd-header-sub {
+    background: #00c358;
+    color: #000;
+    padding: 0 18px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0.85;
+    margin-top: -4px;
+  }
+  .dd-section-label {
+    background: #f0f0f0;
+    color: #555;
+    padding: 8px 18px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .dd-team {
+    border-bottom: 1px solid #ececec;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  .dd-team:last-child { border-bottom: none; }
+  .dd-team:hover { background: #fafafa; }
+  .dd-team.expanded { background: #f7fdf9; }
+
+  .dd-team-row {
+    display: flex;
+    align-items: center;
+    padding: 12px 18px;
+    gap: 14px;
+  }
+  .dd-logo {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+  .dd-team-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .dd-team-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+  .dd-win-total {
+    display: inline-block;
+    padding: 3px 10px;
+    background: #00c358;
+    color: #000;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 4px;
+    margin-left: 8px;
+  }
+  .dd-chevron {
+    color: #999;
+    font-size: 14px;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+  .dd-team.expanded .dd-chevron {
+    transform: rotate(180deg);
+    color: #00c358;
+  }
+
+  .dd-note {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease, padding 0.25s ease;
+    padding: 0 18px 0 76px;
+    font-size: 14px;
+    color: #333;
+  }
+  .dd-team.expanded .dd-note {
+    max-height: 400px;
+    padding: 0 18px 14px 76px;
+  }
+
+  /* Mobile */
+  @media (max-width: 520px) {
+    body { padding: 8px; }
+    .dd-header { font-size: 15px; padding: 12px 14px; }
+    .dd-header-sub { padding: 0 14px 10px; font-size: 11px; }
+    .dd-section-label { padding: 7px 14px; font-size: 10px; }
+    .dd-team-row { padding: 10px 14px; gap: 10px; }
+    .dd-logo { width: 36px; height: 36px; }
+    .dd-team-name { font-size: 14px; }
+    .dd-win-total { font-size: 12px; padding: 2px 8px; margin-left: 6px; }
+    .dd-note { padding: 0 14px 0 60px; font-size: 13px; }
+    .dd-team.expanded .dd-note { padding: 0 14px 12px 60px; }
+  }
+</style>
+</head>
+<body>
+<div class="dd-container">
+
+  <div class="dd-header">NFL Teams With Double-Digit Win Totals — 2026</div>
+  <div class="dd-header-sub">Click any team for a quick note. Sorted by preseason win total.</div>
+
+  <div class="dd-section-label">Top of the Board · 11.5</div>
+
+  <div class="dd-team" onclick="this.classList.toggle('expanded')">
+    <div class="dd-team-row">
+      <img class="dd-logo" src="https://static.sprtactn.co/teamlogos/nfl/100/la.png" alt="Rams">
+      <div class="dd-team-info">
+        <span class="dd-team-name">Los Angeles Rams</span>
+        <span class="dd-win-total">11.5</span>
+      </div>
+      <span class="dd-chevron">▼</span>
+    </div>
+    <div class="dd-note">Rams are 7-2 to their win total over under Sean McVay, including going over the last three years. The Rams had gone under their win total in four straight years before McVay came aboard.</div>
+  </div>
+
+  <div class="dd-team" onclick="this.classList.toggle('expanded')">
+    <div class="dd-team-row">
+      <img class="dd-logo" src="https://static.sprtactn.co/teamlogos/nfl/100/bal.png" alt="Ravens">
+      <div class="dd-team-info">
+        <span class="dd-team-name">Baltimore Ravens</span>
+        <span class="dd-win-total">11.5</span>
+      </div>
+      <span class="dd-chevron">▼</span>
+    </div>
+    <div class="dd-note">This will be the 7th consecutive season with a double-digit win total for Baltimore. Between 1996 and 2019, they only had a double-digit win total five times.</div>
+  </div>
+
+  <div class="dd-section-label">Rest of the Best · 10.5</div>
+
+  <div class="dd-team" onclick="this.classList.toggle('expanded')">
+    <div class="dd-team-row">
+      <img class="dd-logo" src="https://static.sprtactn.co/teamlogos/nfl/100/sea.png" alt="Seahawks">
+      <div class="dd-team-info">
+        <span class="dd-team-name">Seattle Seahawks</span>
+        <span class="dd-win-total">10.5</span>
+      </div>
+      <span class="dd-chevron">▼</span>
+    </div>
+    <div class="dd-note">The Super Bowl champs have been a win total cash cow. Since 2018, they are 6-1-1 to their win total over, including 3-0-1 since 2022. With a win total of 10.5, it's their highest as a franchise since 2017.</div>
+  </div>
+
+  <div class="dd-team" onclick="this.classList.toggle('expanded')">
+    <div class="dd-team-row">
+      <img class="dd-logo" src="https://static.sprtactn.co/teamlogos/nfl/100/buf.png" alt="Bills">
+      <div class="dd-team-info">
+        <span class="dd-team-name">Buffalo Bills</span>
+        <span class="dd-win-total">10.5</span>
+      </div>
+      <span class="dd-chevron">▼</span>
+    </div>
+    <div class="dd-note">Bills win total is set at 10.5 — and that number is important. Since 2017, Bills are 7-2 to their win total over. 6-0 when that win total is below 11 and 1-2 when that win total is 11 or more.</div>
+  </div>
+
+  <div class="dd-team" onclick="this.classList.toggle('expanded')">
+    <div class="dd-team-row">
+      <img class="dd-logo" src="https://static.sprtactn.co/teamlogos/nfl/100/det.png" alt="Lions">
+      <div class="dd-team-info">
+        <span class="dd-team-name">Detroit Lions</span>
+        <span class="dd-win-total">10.5</span>
+      </div>
+      <span class="dd-chevron">▼</span>
+    </div>
+    <div class="dd-note">Between 1990 and 2023, Lions never had a double-digit win total. This will now be their 3rd straight season with one, going 1-1 on those previous win totals.</div>
+  </div>
+
+  <div class="dd-team" onclick="this.classList.toggle('expanded')">
+    <div class="dd-team-row">
+      <img class="dd-logo" src="https://static.sprtactn.co/teamlogos/nfl/100/gb.png" alt="Packers">
+      <div class="dd-team-info">
+        <span class="dd-team-name">Green Bay Packers</span>
+        <span class="dd-win-total">10.5</span>
+      </div>
+      <span class="dd-chevron">▼</span>
+    </div>
+    <div class="dd-note">With Matt LaFleur as head coach, Packers are 5-2 to their win total over after winning just nine games last season and going under. Green Bay has yet to go under their win total in consecutive years with LaFleur.</div>
+  </div>
+
+  <div class="dd-team" onclick="this.classList.toggle('expanded')">
+    <div class="dd-team-row">
+      <img class="dd-logo" src="https://static.sprtactn.co/teamlogos/nfl/100/phi.png" alt="Eagles">
+      <div class="dd-team-info">
+        <span class="dd-team-name">Philadelphia Eagles</span>
+        <span class="dd-win-total">10.5</span>
+      </div>
+      <span class="dd-chevron">▼</span>
+    </div>
+    <div class="dd-note">Eagles are now 3-2 to their win total over with Nick Sirianni after going under last year by a single game, losing in Week 18 last year. The only good thing for Philly, only once under Sirianni they've seen their win total fall year-to-year and they won 14 games that season (2024).</div>
+  </div>
+
+  <div class="dd-team" onclick="this.classList.toggle('expanded')">
+    <div class="dd-team-row">
+      <img class="dd-logo" src="https://static.sprtactn.co/teamlogos/nfl/100/kc.png" alt="Chiefs">
+      <div class="dd-team-info">
+        <span class="dd-team-name">Kansas City Chiefs</span>
+        <span class="dd-win-total">10.5</span>
+      </div>
+      <span class="dd-chevron">▼</span>
+    </div>
+    <div class="dd-note">Chiefs have gone under their win total in 3 of the last 5 seasons, all since moving to a 17-game schedule. They were over in eight straight prior to that stretch. Under Andy Reid, the Chiefs are 10-3 to their win total over and Reid overall is 19-7-1 to his win total over with the Chiefs and Eagles.</div>
+  </div>
+
+  <div class="dd-team" onclick="this.classList.toggle('expanded')">
+    <div class="dd-team-row">
+      <img class="dd-logo" src="https://static.sprtactn.co/teamlogos/nfl/100/lac.png" alt="Chargers">
+      <div class="dd-team-info">
+        <span class="dd-team-name">Los Angeles Chargers</span>
+        <span class="dd-win-total">10.5</span>
+      </div>
+      <span class="dd-chevron">▼</span>
+    </div>
+    <div class="dd-note">The turnaround. Between 2019 and 2023 Chargers went under their win total in five straight years, now back-to-back overs under Jim Harbaugh. In Harbaugh's six NFL seasons with 49ers and Chargers, his teams are 5-1 to win total over.</div>
+  </div>
+
+  <div class="dd-team" onclick="this.classList.toggle('expanded')">
+    <div class="dd-team-row">
+      <img class="dd-logo" src="https://static.sprtactn.co/teamlogos/nfl/100/sf.png" alt="49ers">
+      <div class="dd-team-info">
+        <span class="dd-team-name">San Francisco 49ers</span>
+        <span class="dd-win-total">10.5</span>
+      </div>
+      <span class="dd-chevron">▼</span>
+    </div>
+    <div class="dd-note">The 49ers were the only team with a double-digit win total to cash their over last season — in total, those teams went 1-6 to the over.</div>
+  </div>
+
+</div>
+</body>
+</html>
