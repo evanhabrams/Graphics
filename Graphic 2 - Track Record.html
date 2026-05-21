@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<title>Big-Favorite Track Record — Grand Slam</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../tokens.css">
+<link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Mona Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--surface-background);
+    color: var(--text-icons-primary);
+    -webkit-font-smoothing: antialiased;
+    font-variant-numeric: tabular-nums;
+  }
+  .page { max-width: 1120px; margin: 0 auto; padding: 32px; }
+
+  .ghead { margin-bottom: 16px; }
+  .ghead .label {
+    display: inline-block; padding: 4px 8px; border-radius: 4px;
+    background: var(--surface-brand); color: var(--text-icons-always-white);
+    font: 700 10px/1 'Mona Sans', sans-serif;
+    letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .ghead h2 {
+    margin: 12px 0 4px; font: 700 28px/1.1 'Mona Sans', sans-serif;
+    letter-spacing: -0.02em; color: var(--text-icons-primary);
+  }
+  .ghead p {
+    margin: 0; font: 500 13px/1.4 'Mona Sans', sans-serif;
+    color: var(--text-icons-secondary); max-width: 720px;
+  }
+
+  .card {
+    background: var(--surface-foreground);
+    border: 1px solid var(--dividers-border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadows-raised-1);
+  }
+  .card-head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; padding: 14px 24px;
+    background: var(--surface-brand);
+  }
+  .card-head .ht {
+    font: 700 13px/1.1 'Mona Sans', sans-serif;
+    color: var(--text-icons-always-white);
+    letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .card-head .hm {
+    font: 600 11px/1.2 'Mona Sans', sans-serif;
+    color: var(--text-icons-always-white-80);
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .card-foot {
+    display: flex; flex-wrap: wrap; justify-content: space-between;
+    align-items: center; gap: 12px;
+    padding: 14px 24px;
+    border-top: 1px solid var(--dividers-border);
+    background: var(--surface-ui-element-light-alpha);
+    color: var(--text-icons-tertiary);
+    font: 500 11px/1.4 'Mona Sans', sans-serif;
+  }
+  .card-foot .legend { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+  .card-foot .legend-item { display: inline-flex; align-items: center; gap: 8px; }
+  .card-foot .swatch { width: 10px; height: 10px; border-radius: 2px; }
+  .card-foot .swatch.won { background: var(--text-icons-green); }
+  .card-foot .swatch.lost { background: var(--text-icons-red); }
+  .card-foot .swatch.upcoming { background: var(--labels-yellow-text); }
+
+  /* Player rows */
+  .player {
+    display: grid;
+    grid-template-columns: 240px 1fr 100px;
+    border-bottom: 1px solid var(--dividers-border);
+  }
+  .player:last-child { border-bottom: 0; }
+
+  .pinfo {
+    padding: 24px;
+    border-right: 1px solid var(--dividers-border);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .pinfo img.hs {
+    width: 56px; height: 56px; border-radius: 9999px;
+    object-fit: cover; flex-shrink: 0;
+    background: var(--surface-ui-element-light);
+    border: 1px solid var(--dividers-border);
+  }
+  .pinfo .meta { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .pinfo .name {
+    font: 700 16px/1.15 'Mona Sans', sans-serif;
+    color: var(--text-icons-primary); letter-spacing: -0.01em;
+  }
+  .pinfo .span {
+    font: 600 10px/1.4 'Mona Sans', sans-serif;
+    color: var(--text-icons-tertiary);
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  .years {
+    padding: 16px 0;
+    display: flex; flex-direction: column;
+  }
+  .year {
+    display: grid;
+    grid-template-columns: 64px repeat(4, 1fr);
+    align-items: center;
+    padding: 8px 16px;
+  }
+  .yrlbl {
+    font: 700 14px/1 'Mona Sans', sans-serif;
+    color: var(--text-icons-secondary);
+    letter-spacing: -0.01em;
+  }
+  .cell {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    padding: 4px 0;
+  }
+  .cell .lgwrap {
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .cell .lgwrap img {
+    max-width: 100%; max-height: 100%;
+    display: block;
+  }
+  .cell.won .lgwrap img { opacity: 1; }
+  .cell.won .lgwrap::after {
+    content: ''; position: absolute; inset: -3px;
+    border-radius: 9999px;
+    border: 2px solid var(--text-icons-green);
+    pointer-events: none;
+  }
+  .cell.lost .lgwrap img { opacity: 0.28; filter: grayscale(0.8); }
+  .cell.upcoming .lgwrap img { opacity: 0.65; }
+  .cell.upcoming .lgwrap::after {
+    content: ''; position: absolute; inset: -3px;
+    border-radius: 9999px;
+    border: 2px dashed var(--labels-yellow-text);
+    pointer-events: none;
+  }
+  .cell.empty .lgwrap::before {
+    content: '—';
+    color: var(--text-icons-tertiary);
+    opacity: 0.4;
+    font: 500 16px/1 'Mona Sans', sans-serif;
+  }
+  .cell .tag {
+    font: 700 8px/1 'Mona Sans', sans-serif;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    min-height: 8px;
+  }
+  .cell.won .tag { color: var(--text-icons-green); }
+  .cell.lost .tag { color: var(--text-icons-red); opacity: 0.85; }
+  .cell.upcoming .tag { color: var(--labels-yellow-text); }
+
+  .tally {
+    padding: 24px 16px;
+    border-left: 1px solid var(--dividers-border);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 4px;
+  }
+  .tally .big {
+    font: 800 26px/1 'Mona Sans', sans-serif;
+    letter-spacing: -0.02em;
+    color: var(--text-icons-primary);
+  }
+  .tally .big .w { color: var(--text-icons-green); }
+  .tally .big .l { color: var(--text-icons-red); }
+  .tally .big .sep { color: var(--text-icons-tertiary); padding: 0 4px; }
+
+  /* Column header */
+  .colhead {
+    display: grid;
+    grid-template-columns: 240px 1fr 100px;
+    background: var(--surface-ui-element-light);
+    border-bottom: 1px solid var(--dividers-border);
+  }
+  .colhead .h-player {
+    padding: 12px 24px;
+    font: 700 10px/1 'Mona Sans', sans-serif;
+    color: var(--text-icons-tertiary);
+    letter-spacing: 0.14em; text-transform: uppercase;
+    border-right: 1px solid var(--dividers-border);
+    display: flex; align-items: center;
+  }
+  .colhead .h-slams {
+    padding: 10px 16px;
+    display: grid;
+    grid-template-columns: 64px repeat(4, 1fr);
+    align-items: center;
+  }
+  .colhead .h-slams .yrlbl {
+    font: 700 10px/1 'Mona Sans', sans-serif;
+    color: var(--text-icons-tertiary);
+    letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .colhead .h-slams .sh {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+  }
+  .colhead .h-slams .sh .mini { height: 22px; display: flex; align-items: center; }
+  .colhead .h-slams .sh .mini img { max-height: 100%; max-width: 100%; }
+  .colhead .h-slams .sh .nm {
+    font: 700 9px/1 'Mona Sans', sans-serif;
+    color: var(--text-icons-tertiary);
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .colhead .h-tally {
+    padding: 12px 16px;
+    border-left: 1px solid var(--dividers-border);
+    font: 700 10px/1 'Mona Sans', sans-serif;
+    color: var(--text-icons-tertiary);
+    letter-spacing: 0.14em; text-transform: uppercase;
+    text-align: center;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  @media (max-width: 900px) {
+    .player { grid-template-columns: 180px 1fr 84px; }
+    .colhead { grid-template-columns: 180px 1fr 84px; }
+    .pinfo { padding: 16px; gap: 10px; }
+    .pinfo img.hs { width: 44px; height: 44px; }
+    .pinfo .name { font-size: 14px; }
+    .year { grid-template-columns: 44px repeat(4, 1fr); padding: 6px 8px; }
+    .cell .lgwrap { width: 28px; height: 28px; }
+    .tally { padding: 16px 8px; }
+    .tally .big { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<main class="page">
+
+  <div class="ghead">
+    <h2>Big-Favorite Track Record</h2>
+    <p>Every player who entered a Grand Slam as a +100-or-shorter favorite 2+ times in the same year (since 1990).<br>Lit = won the title. Dimmed = lost as favorite. Outlined = upcoming.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="ht">Multiple Grand Slam Odds-On Favorites in Single Year</span>
+      <span class="hm">7 Players · Since 1990</span>
+    </div>
+
+    <div class="colhead">
+      <div class="h-player">Player</div>
+      <div class="h-slams">
+        <div class="yrlbl">Year</div>
+        <div class="sh"><div class="mini"><img src="logos/ao.png" alt=""></div><div class="nm">AO</div></div>
+        <div class="sh"><div class="mini"><img src="logos/rg.png" alt=""></div><div class="nm">RG</div></div>
+        <div class="sh"><div class="mini"><img src="logos/wim.png" alt=""></div><div class="nm">WIM</div></div>
+        <div class="sh"><div class="mini"><img src="logos/uso.png" alt=""></div><div class="nm">USO</div></div>
+      </div>
+      <div class="h-tally">Won Title?</div>
+    </div>
+
+    <div id="grid"></div>
+
+    <div class="card-foot">
+      <div class="legend">
+        <span class="legend-item"><span class="swatch won"></span>Won title</span>
+        <span class="legend-item"><span class="swatch lost"></span>Lost as favorite</span>
+        <span class="legend-item"><span class="swatch upcoming"></span>Upcoming</span>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  const SLAMS = ['AO', 'RG', 'W', 'US'];
+  const SLAM_LOGOS = { AO: 'logos/ao.png', RG: 'logos/rg.png', W: 'logos/wim.png', US: 'logos/uso.png' };
+
+  const PLAYERS = [
+    {
+      id: 'sinner', name: 'Jannik Sinner', span: '2026<br>1 Season',
+      years: [
+        { y: 2026, results: { AO: 'L', RG: 'U' } },
+      ],
+    },
+    {
+      id: 'djokovic', name: 'Novak Djokovic', span: '2015 – 2023<br>4 Seasons',
+      years: [
+        { y: 2023, results: { AO: 'L', W: 'L' } },
+        { y: 2021, results: { W: 'W', US: 'L' } },
+        { y: 2016, results: { AO: 'W', RG: 'W', W: 'L' } },
+        { y: 2015, results: { AO: 'W', RG: 'L' } },
+      ],
+    },
+    {
+      id: 'federer', name: 'Roger Federer', span: '2005 – 2007<br>3 Seasons',
+      years: [
+        { y: 2007, results: { AO: 'W', W: 'W', US: 'W' } },
+        { y: 2006, results: { AO: 'W', W: 'W', US: 'W' } },
+        { y: 2005, results: { W: 'W', US: 'W' } },
+      ],
+    },
+    {
+      id: 'serena', name: 'Serena Williams', span: '2013<br>1 Season',
+      years: [
+        { y: 2013, results: { AO: 'L', RG: 'W', W: 'L', US: 'W' } },
+      ],
+    },
+    {
+      id: 'hingis', name: 'Martina Hingis', span: '1999<br>1 Season',
+      years: [
+        { y: 1999, results: { RG: 'L', US: 'L' } },
+      ],
+    },
+    {
+      id: 'graf', name: 'Steffi Graf', span: '1990 – 1996<br>5 Seasons',
+      years: [
+        { y: 1996, results: { W: 'W', US: 'W' } },
+        { y: 1995, results: { RG: 'W', W: 'W' } },
+        { y: 1994, results: { AO: 'W', RG: 'L', W: 'L', US: 'L' } },
+        { y: 1993, results: { RG: 'W', W: 'W', US: 'W' } },
+        { y: 1990, results: { AO: 'W', RG: 'L', US: 'L' } },
+      ],
+    },
+    {
+      id: 'seles', name: 'Monica Seles', span: '1992<br>1 Season',
+      years: [
+        { y: 1992, results: { AO: 'W', RG: 'W' } },
+      ],
+    },
+  ];
+
+  function tally(p) {
+    let w = 0, l = 0;
+    for (const yr of p.years) for (const r of Object.values(yr.results)) {
+      if (r === 'W') w++; else if (r === 'L') l++;
+    }
+    return { w, l };
+  }
+
+  function cellHTML(slam, state) {
+    if (!state) return `<div class="cell empty"><div class="lgwrap"></div><div class="tag">&nbsp;</div></div>`;
+    const cls = state === 'W' ? 'won' : state === 'L' ? 'lost' : 'upcoming';
+    const tag = state === 'W' ? 'WON' : state === 'L' ? 'LOST' : 'SOON';
+    return `<div class="cell ${cls}"><div class="lgwrap"><img src="${SLAM_LOGOS[slam]}" alt=""></div><div class="tag">${tag}</div></div>`;
+  }
+
+  function playerHTML(p) {
+    const t = tally(p);
+    const yearsHTML = p.years.map(yr => {
+      const cells = SLAMS.map(s => cellHTML(s, yr.results[s])).join('');
+      return `<div class="year"><div class="yrlbl">${yr.y}</div>${cells}</div>`;
+    }).join('');
+    return `
+      <div class="player">
+        <div class="pinfo">
+          <img class="hs" src="headshots/${p.id}.png" alt="">
+          <div class="meta">
+            <div class="name">${p.name}</div>
+            <div class="span">${p.span}</div>
+          </div>
+        </div>
+        <div class="years">${yearsHTML}</div>
+        <div class="tally">
+          <div class="big"><span class="w">${t.w}</span><span class="sep">–</span><span class="l">${t.l}</span></div>
+        </div>
+      </div>`;
+  }
+
+  document.getElementById('grid').innerHTML = PLAYERS.map(playerHTML).join('');
+</script>
+</body>
+</html>
